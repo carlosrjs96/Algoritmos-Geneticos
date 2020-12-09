@@ -3,17 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package algoritmosgeneticos;
+package Model;
 
 /**
  *
  * @author Carlos
  */
-public class MoverRandom extends Mover{
+public class Point {
+    public double x;
+    public double y;
+
+    public Point(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
 
     @Override
-    public void mover() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String toString() {
+        return "(" + x + "|" + y + ")";
     }
-    
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package algoritmosgeneticos;
+package Model;
 
 import java.awt.Color;
 import java.util.Hashtable;
@@ -153,5 +153,27 @@ public class Abeja {
         this.distanciaMax = distanciaMax;
     }
     
+    public double distance(Point a,Point b){
+        double distance = Math.sqrt(Math.pow(b.x-a.x,2)+Math.pow(b.y-a.y,2));
+        //System.out.println("Distancia: "+distance);
+        return distance;
+    }
+    
+    public double calculateAngle(Point origen, Point destino){//Calcula el angulo de una linea a partir de un punto de origen
+        double x1 = destino.x; 
+        double y1 = destino.y; 
+        double x2 = origen.x; 
+        double y2 = origen.y;
+        double hypothenus=(double)Math.sqrt(Math.pow(x1-x2,2)+Math.pow(y1-y2,2));
+        double angle=(double)Math.toDegrees(Math.acos( (x1-x2)/hypothenus ));
+        if(y1<y2) angle=360-angle;
+        return angle;
+    }
+    
+    public Point calculatePoint(double angle, Point pCentral,double dist){
+        double angle_div = Math.toRadians(angle);
+        Point point = new Point((pCentral.x+Math.cos(angle_div)*dist),(pCentral.y+Math.sin(angle_div)*dist)); 
+        return point;
+    }
     
 }
