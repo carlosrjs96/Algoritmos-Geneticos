@@ -5,6 +5,12 @@
  */
 package View;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.io.IOException;
+import javax.swing.JButton;
+
 /**
  *
  * @author Carlos
@@ -17,6 +23,30 @@ public class Mapa extends javax.swing.JFrame {
     public Mapa() {
         initComponents();
     }
+    
+    public void createCampo() {
+        pnlCampo.removeAll();
+        pnlCampo.revalidate();
+        pnlCampo.repaint();
+        int dimension = getDimension();
+
+        pnlCampo.setLayout(new GridLayout(dimension, dimension,1,1));
+        butArray = new JButton[dimension][dimension];
+        int btnDim = 1000 / dimension;
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                System.out.println("12");
+                butArray[i][j] = new JButton();
+                butArray[i][j].setBackground(new Color(255,255,127));
+                butArray[i][j].setPreferredSize(new Dimension(btnDim,btnDim));
+                //butArray[i][j].setFont(new Font("Arial", Font.PLAIN, 7));
+                pnlCampo.add(butArray[i][j]);
+            }
+            
+        }
+        
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,21 +57,135 @@ public class Mapa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnlCampo = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtDimension = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtPobAbejas = new javax.swing.JTextField();
+        txtPobFlores = new javax.swing.JTextField();
+        btnCargar = new javax.swing.JButton();
+        btnEmpezar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        txtNumGeneraciones = new javax.swing.JTextField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        pnlCampo.setBackground(new java.awt.Color(255, 204, 204));
+
+        javax.swing.GroupLayout pnlCampoLayout = new javax.swing.GroupLayout(pnlCampo);
+        pnlCampo.setLayout(pnlCampoLayout);
+        pnlCampoLayout.setHorizontalGroup(
+            pnlCampoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 516, Short.MAX_VALUE)
+        );
+        pnlCampoLayout.setVerticalGroup(
+            pnlCampoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 448, Short.MAX_VALUE)
+        );
+
+        jLabel1.setText("Dimension : ");
+
+        txtDimension.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDimensionActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Poblaciones : ");
+
+        jLabel3.setText("Abejas : ");
+
+        jLabel4.setText("Flores : ");
+
+        txtPobAbejas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPobAbejasActionPerformed(evt);
+            }
+        });
+
+        btnCargar.setText("Cargar");
+
+        btnEmpezar.setText("Empezar");
+
+        jLabel5.setText("Num. Generaciones :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(pnlCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtPobFlores)
+                            .addComponent(txtDimension)
+                            .addComponent(txtPobAbejas, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNumGeneraciones)
+                            .addComponent(btnEmpezar, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))))
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(pnlCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtDimension, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(49, 49, 49)
+                                .addComponent(txtPobAbejas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtPobFlores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtNumGeneraciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
+                        .addComponent(btnCargar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEmpezar)))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtDimensionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDimensionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDimensionActionPerformed
+
+    private void txtPobAbejasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPobAbejasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPobAbejasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -77,7 +221,51 @@ public class Mapa extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+    private int validateInt(String valor){
+        int num = 0;
+        try{
+            num = Integer.parseInt(valor);
+        }
+        catch (NumberFormatException ex) {
+            num = 5;
+        }
+        return num;
+    }
+    
+    public int getPobFlores(){
+        return validateInt(txtPobFlores.getText());  
+    }
+    
+    public int getPobAbejas(){
+       return validateInt(txtPobAbejas.getText());  
+    }
+    
+    public int getDimension () {
+        return validateInt(txtDimension.getText());  
+    }
+    
+    public int getNumGeneraciones (){
+        return validateInt(txtNumGeneraciones.getText()); 
+    }
+    
+    
+    
 
+    public JButton[][] butArray;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnCargar;
+    public javax.swing.JButton btnEmpezar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    public javax.swing.JPanel pnlCampo;
+    public javax.swing.JTextField txtDimension;
+    public javax.swing.JTextField txtNumGeneraciones;
+    public javax.swing.JTextField txtPobAbejas;
+    public javax.swing.JTextField txtPobFlores;
     // End of variables declaration//GEN-END:variables
 }
