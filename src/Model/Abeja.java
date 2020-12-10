@@ -15,27 +15,64 @@ import java.util.Random;
  */
 public class Abeja {
     private Point point;
-    private ColorType color;
-    private DireccionType direccion;
-    private double anguloPreferencia;
+    private ColorType colorPreferencia;
+    //no recuerdo para que servia esta direccion
+    //por eso la nombre de nuevo
+    private DireccionType direccionPreferencia;
+    //este es el angulo de apertura
+    //que tan ampio será su area de busqueda
+    private double anguloApertura;
     private double distanciaMax;
-    private Abeja mama;
-    private Abeja papa;
+    private Abeja mamaAbeja;
+    private Abeja papaAbeja;
     //(color.getRGB(),cantidad de polen)
     private Hashtable<Integer, Integer> contenedorPolen = new Hashtable<Integer, Integer>();
     private Mover mover;
+    
+    public Abeja(){
+        colorPreferencia = Utilidades.getRandomColor();
+        direccionPreferencia = Utilidades.getRandomDireccion();
+        //obtener la distancia maxima desde el centro del panal hasta el extremo
+        distanciaMax = Utilidades.rand.nextInt((int)Utilidades.rangoMaximo);
+        anguloApertura = Utilidades.rand.nextInt(180);
+        mamaAbeja = null;
+        papaAbeja = null;
+        mover = getRandomMover();
+    }
+    
+    
+    
 
     public Abeja(Point point, ColorType color, DireccionType direccion,
             double anguloPreferencia, double distanciaMax, Abeja mama, Abeja papa,int random) {
         this.point = point;
-        this.color = color;
-        this.direccion = direccion;
-        this.anguloPreferencia = anguloPreferencia;
+        //this.color = color;
+        //this.direccion = direccion;
+        //this.anguloPreferencia = anguloPreferencia;
         this.distanciaMax = distanciaMax;
-        this.mama = mama;
-        this.papa = papa;
+        //this.mama = mama;
+        //this.papa = papa;
         this.setMover(random);
     }
+    
+    private Mover getRandomMover(){
+        int num = Utilidades.rand.nextInt(3);
+        Mover mover= null;
+        switch (num) {
+            case 0:
+                mover = new MoverAnchura();
+                break;
+            case 1:
+                mover = new MoverProfundidad();
+                break;
+            default:
+                mover = new MoverRandom();
+                break;
+        }
+        return mover;
+    }
+    
+    
     
     public Color getCromosomaColor( Color mama, Color papa){
         return null;
@@ -53,14 +90,14 @@ public class Abeja {
         return 0;
     }
     
-    public Abeja getHijoAbeja(Abeja mama, Abeja papa, int random){
+    /*public Abeja getHijoAbeja(Abeja mama, Abeja papa, int random){
         Point point = new Point(0,0);// hay que revisarlo
         Color color = getCromosomaColor(mama.getColor().getColor(), papa.getColor().getColor());
         DireccionType direccion = getCromosomaDireccion(mama.getDireccion(),papa.getDireccion());
         double anguloPreferencia = getCromosomaAngulo(mama.getAnguloPreferencia(),papa.getAnguloPreferencia());
         double distanciaMax = getCromosomaDist(mama.getDistanciaMax(),papa.getDistanciaMax());
         return new Abeja(point, null, direccion, anguloPreferencia, distanciaMax, mama, papa, random); 
-    }
+    }*/
     
     
     private void setMover(int random){
@@ -93,21 +130,7 @@ public class Abeja {
         this.point = point;
     }
 
-    public Abeja getMama() {
-        return mama;
-    }
-
-    public void setMama(Abeja mama) {
-        this.mama = mama;
-    }
-
-    public Abeja getPapa() {
-        return papa;
-    }
-
-    public void setPapa(Abeja papa) {
-        this.papa = papa;
-    }
+   
 
     
 
@@ -118,32 +141,52 @@ public class Abeja {
     public void setContenedorPolen(Hashtable<Integer, Integer> contenedorPolen) {
         this.contenedorPolen = contenedorPolen;
     }
+
+    public ColorType getColorPreferencia() {
+        return colorPreferencia;
+    }
+
+    public void setColorPreferencia(ColorType colorPreferencia) {
+        this.colorPreferencia = colorPreferencia;
+    }
+
+    public DireccionType getDireccionPreferencia() {
+        return direccionPreferencia;
+    }
+
+    public void setDireccionPreferencia(DireccionType direccionPreferencia) {
+        this.direccionPreferencia = direccionPreferencia;
+    }
+
+    public double getAnguloApertura() {
+        return anguloApertura;
+    }
+
+    public void setAnguloApertura(double anguloApertura) {
+        this.anguloApertura = anguloApertura;
+    }
+
+    public Abeja getMamaAbeja() {
+        return mamaAbeja;
+    }
+
+    public void setMamaAbeja(Abeja mamaAbeja) {
+        this.mamaAbeja = mamaAbeja;
+    }
+
+    public Abeja getPapaAbeja() {
+        return papaAbeja;
+    }
+
+    public void setPapaAbeja(Abeja papaAbeja) {
+        this.papaAbeja = papaAbeja;
+    }
     
     
 
-    public ColorType getColor() {
-        return color;
-    }
+   
 
-    public void setColor(ColorType color) {
-        this.color = color;
-    }
-
-    public DireccionType getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(DireccionType direccion) {
-        this.direccion = direccion;
-    }
-
-    public double getAnguloPreferencia() {
-        return anguloPreferencia;
-    }
-
-    public void setAnguloPreferencia(double anguloPreferencia) {
-        this.anguloPreferencia = anguloPreferencia;
-    }
+ 
 
     public double getDistanciaMax() {
         return distanciaMax;

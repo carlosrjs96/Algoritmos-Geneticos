@@ -1,0 +1,9 @@
+reproducir las abejas
+	debería hacerse en el panal
+	para que reproduzca a todas las abejas
+
+reproducir las flores
+	esto se debería hacer en cada flor
+	con el polem que ha recolectado, le han depositado
+
+recorrido de abejas
