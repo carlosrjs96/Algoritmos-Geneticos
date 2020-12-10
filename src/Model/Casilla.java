@@ -13,6 +13,10 @@ public class Casilla {
     public Point point;
     public Flor flor;
 
+    public Casilla (){
+        
+    }
+    
     public Casilla(Point point, Flor flor) {
         this.point = point;
         this.flor = flor;

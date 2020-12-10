@@ -12,7 +12,7 @@ import java.util.Random;
  *
  * @author Carlos
  */
-public class Panal {
+public class Panal extends Casilla{
     private ArrayList<Abeja> abejasList = new ArrayList<Abeja>();
     public static Random r = new Random();
     

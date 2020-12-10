@@ -7,21 +7,34 @@ package Model;
 
 import java.awt.Color;
 import java.util.Hashtable;
+import java.util.Random;
 
 /**
  *
  * @author Carlos
  */
-public class Flor {
-    private Point point;
+public class Flor extends Casilla {
+    //private Point point;
     //(color.getRGB(),cantidad de polen)
     private Hashtable<Integer, Integer> contenedorPolen = new Hashtable<Integer, Integer>();
     private Color color;
+    private int x;
+    private int y;
 
+    public Flor (int x, int y) {
+        this.x = x;
+        this.y = y;
+        this.color = Utilidades.getRandomColor();
+    }
+    
     public Flor(Point point, Color color) {
+        super();
         this.point = point;
         this.color = color;
     }
+    
+    
+    
 
     public Point getPoint() {
         return point;

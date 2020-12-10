@@ -13,6 +13,9 @@ import java.awt.event.ActionListener;
  *
  * @author Carlos
  */
+
+//hacer funcion para que cargue flores al inicio
+
 public class Controlador implements ActionListener{
     
     private Mapa mapa;
