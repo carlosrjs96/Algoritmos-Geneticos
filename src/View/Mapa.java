@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.IOException;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /**
  *
@@ -31,16 +32,17 @@ public class Mapa extends javax.swing.JFrame {
         int dimension = getDimension();
 
         pnlCampo.setLayout(new GridLayout(dimension, dimension,1,1));
-        butArray = new JButton[dimension][dimension];
-        int btnDim = 1000 / dimension;
+        pnlArray = new JPanel[dimension][dimension];
+        int btnDim = 700 / dimension;
+        System.out.println("dim btn");
+        System.out.println(btnDim);
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
-                System.out.println("12");
-                butArray[i][j] = new JButton();
-                butArray[i][j].setBackground(new Color(255,255,127));
-                butArray[i][j].setPreferredSize(new Dimension(btnDim,btnDim));
+                pnlArray[i][j] = new JPanel();
+                pnlArray[i][j].setBackground(new Color(255,255,127));
+                pnlArray[i][j].setPreferredSize(new Dimension(btnDim,btnDim));
                 //butArray[i][j].setFont(new Font("Arial", Font.PLAIN, 7));
-                pnlCampo.add(butArray[i][j]);
+                pnlCampo.add(pnlArray[i][j]);
             }
             
         }
@@ -253,7 +255,7 @@ public class Mapa extends javax.swing.JFrame {
     
     
 
-    public JButton[][] butArray;
+    public JPanel[][] pnlArray;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnCargar;
     public javax.swing.JButton btnEmpezar;

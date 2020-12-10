@@ -15,12 +15,29 @@ import java.util.Random;
 public class Utilidades {
     
     public static final Random rand = new Random();
+    public static double rangoMaximo = -1;
+    public static int probCrearFlor = 50;
     
-    public static Color getRandomColor(){
-        Random rand = new Random();
+    public static ColorType getRandomColor(){
+        
         int largo = ColorType.values().length;
         int index = rand.nextInt(largo);
-        return ColorType.values()[index].getColor();
+        return ColorType.values()[index];
+    }
+    
+    public static DireccionType getRandomDireccion(){
+        int largo = DireccionType.values().length;
+        int index = rand.nextInt(largo);
+        return DireccionType.values()[index];
+    }
+    
+    //la idea es utilizar pitagoras 
+    //para obtener la distancia desde el centro
+    //hasta una esquina
+    public static void setRangoMaximo(int dimension){
+        double cateto = dimension / 2;
+        double hipotenusa = Math.sqrt(Math.pow(cateto, 2)+Math.pow(cateto, 2));
+        rangoMaximo = hipotenusa;  
     }
     
     

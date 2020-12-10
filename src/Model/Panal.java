@@ -13,10 +13,17 @@ import java.util.Random;
  * @author Carlos
  */
 public class Panal extends Casilla{
-    private ArrayList<Abeja> abejasList = new ArrayList<Abeja>();
-    public static Random r = new Random();
+    private ArrayList<Abeja> abejasList ;
     
-    public Panal() {}
+    public Panal() {
+        abejasList = new ArrayList<Abeja>();
+    }
+    
+    public void crearAbejas (int pobAbejas){
+        for (int i = 0; i < pobAbejas; i++) {
+            abejasList.add(new Abeja());
+        }
+    }
 
     public ArrayList<Abeja> getAbejasList() {
         return abejasList;
