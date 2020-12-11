@@ -12,24 +12,33 @@ import java.awt.Color;
  * @author Carlos
  */
 public enum ColorType {
-    ROJO(Color.red),
-    AZUL(Color.blue),
-    AMARILLO(Color.yellow),
-    VERDE(Color.green),
-    NARANJA(Color.orange),
-    MAGENTA(Color.MAGENTA),
-    ROSA(Color.PINK),
-    CYAN(Color.cyan);
+    ROJO(Color.red,"000"),
+    AZUL(Color.blue,"001"),
+    AMARILLO(Color.yellow,"010"),
+    VERDE(Color.green,"011"),
+    NARANJA(Color.orange,"100"),
+    MAGENTA(Color.MAGENTA,"101"),
+    ROSA(Color.PINK,"110"),
+    CYAN(Color.cyan,"111");
     
     private Color color;
+    private String bits;
 
-    private ColorType(Color color) {
+    private ColorType(Color color,String bits) {
         this.color = color;
+        this.bits = bits;
     }
 
     public Color getColor() {
         return color;
     }
-    
+
+    public String getBits() {
+        return bits;
+    }
+
+    public void setBits(String bits) {
+        this.bits = bits;
+    }
     
 }

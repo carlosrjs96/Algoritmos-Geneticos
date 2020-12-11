@@ -39,6 +39,11 @@ public class Flor extends Casilla {
         this.color = color;
     }
     
+    public Flor (Color color) {
+        this.color = color;
+    }
+    
+    
    /*
     HACER UNO QUE RECIBA UN ARRAYLIST
     O HASHTABLE DE COLORRES
@@ -46,6 +51,10 @@ public class Flor extends Casilla {
     VISITADO YA VARIAS FLORES
     Y TIENE MUCHOS
     */
+    public Flor getClone(){
+        return new Flor(this.color);
+    }
+    
     
     //simplemente darle el polen a la flor
     public void polinizada(Color polen){
