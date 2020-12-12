@@ -5,10 +5,12 @@
  */
 package Model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Carlos
  */
 public abstract class Mover {
-    public abstract void mover();
+    public abstract void mover(Abeja abeja, Panal panal, ArrayList<Flor> listFlores);
 }

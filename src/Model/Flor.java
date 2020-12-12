@@ -16,19 +16,15 @@ import java.util.Set;
  * @author Carlos
  */
 public class Flor extends Casilla {
-    //private Point point;
+    private Point point;
     //(color.getRGB(),cantidad de polen)
     //no recuerdo porque dos Integer
     private Hashtable<Integer, Integer> contenedorPolen = new Hashtable<Integer, Integer>();
     
     private Hashtable<Color, Integer> polenGuardado = new Hashtable<Color, Integer>();
     private Color color;
-    private int x;
-    private int y;
-
+    
     public Flor (int x, int y) {
-        this.x = x;
-        this.y = y;
         point = new Point(x,y);
         this.color = Utilidades.getRandomColor().getColor();
     }
@@ -95,6 +91,7 @@ public class Flor extends Casilla {
         this.color = color;
     }
 
+
     //nueva generación
     //el campo debe guardar la mariz de colores
     public void reproducir(){
@@ -125,12 +122,7 @@ public class Flor extends Casilla {
         
         //acá ya tengo el color con el que se reproduce
         //hacer entrecruzamiento
-        //convertir los valores a binarios
-        
-        
-        
+        //convertir los valores a binarios   
     }
-    
-    
-    
+
 }

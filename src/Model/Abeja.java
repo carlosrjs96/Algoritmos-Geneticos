@@ -27,7 +27,10 @@ public class Abeja {
     private Abeja papaAbeja;
     //(color.getRGB(),cantidad de polen)
     private Hashtable<Integer, Integer> contenedorPolen = new Hashtable<Integer, Integer>();
-    private Mover mover;
+    private Mover mover;    
+    private int cantFloresVisitadas = 0;
+    private double distanciaRecorrida = 0;
+
     
     public Abeja(){
         colorPreferencia = Utilidades.getRandomColor();
@@ -40,9 +43,6 @@ public class Abeja {
         mover = getRandomMover();
     }
     
-    
-    
-
     public Abeja(Point point, ColorType color, DireccionType direccion,
             double anguloPreferencia, double distanciaMax, Abeja mama, Abeja papa,int random) {
         this.point = point;
@@ -72,7 +72,16 @@ public class Abeja {
         return mover;
     }
     
-    
+    public void visitarFlor(Flor flor){
+        this.cantFloresVisitadas++;
+        if(flor.getColor() != this.getColorPreferencia().getColor()){
+            int prob = Utilidades.rand.nextInt(100);
+            if (prob <= Utilidades.probPolenizarFlor) {
+               return; 
+            }
+        } 
+        //AQUI LE INTRODUCE EL POLEN A LA FLOR
+    }
     
     public Color getCromosomaColor( Color mama, Color papa){
         return null;
@@ -181,13 +190,7 @@ public class Abeja {
     public void setPapaAbeja(Abeja papaAbeja) {
         this.papaAbeja = papaAbeja;
     }
-    
-    
-
-   
-
  
-
     public double getDistanciaMax() {
         return distanciaMax;
     }
@@ -195,28 +198,23 @@ public class Abeja {
     public void setDistanciaMax(double distanciaMax) {
         this.distanciaMax = distanciaMax;
     }
-    
-    public double distance(Point a,Point b){
-        double distance = Math.sqrt(Math.pow(b.x-a.x,2)+Math.pow(b.y-a.y,2));
-        //System.out.println("Distancia: "+distance);
-        return distance;
+
+    public int getCantFloresVisitadas() {
+        return cantFloresVisitadas;
+    }
+
+    public void setCantFloresVisitadas(int cantFloresVisitadas) {
+        this.cantFloresVisitadas = cantFloresVisitadas;
+    }
+
+    public double getDistanciaRecorrida() {
+        return distanciaRecorrida;
+    }
+
+    public void setDistanciaRecorrida(double distanciaRecorrida) {
+        this.distanciaRecorrida = distanciaRecorrida;
     }
     
-    public double calculateAngle(Point origen, Point destino){//Calcula el angulo de una linea a partir de un punto de origen
-        double x1 = destino.x; 
-        double y1 = destino.y; 
-        double x2 = origen.x; 
-        double y2 = origen.y;
-        double hypothenus=(double)Math.sqrt(Math.pow(x1-x2,2)+Math.pow(y1-y2,2));
-        double angle=(double)Math.toDegrees(Math.acos( (x1-x2)/hypothenus ));
-        if(y1<y2) angle=360-angle;
-        return angle;
-    }
     
-    public Point calculatePoint(double angle, Point pCentral,double dist){
-        double angle_div = Math.toRadians(angle);
-        Point point = new Point((pCentral.x+Math.cos(angle_div)*dist),(pCentral.y+Math.sin(angle_div)*dist)); 
-        return point;
-    }
     
 }
