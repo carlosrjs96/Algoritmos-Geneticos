@@ -74,13 +74,9 @@ public class Abeja {
     
     public void visitarFlor(Flor flor){
         this.cantFloresVisitadas++;
-        if(flor.getColor() != this.getColorPreferencia().getColor()){
-            int prob = Utilidades.rand.nextInt(100);
-            if (prob <= Utilidades.probPolenizarFlor) {
-               return; 
-            }
+        if(Utilidades.probPolenizar(flor, this)){
+            //AQUI LE INTRODUCE EL POLEN A LA FLOR
         } 
-        //AQUI LE INTRODUCE EL POLEN A LA FLOR
     }
     
     public Color getCromosomaColor( Color mama, Color papa){

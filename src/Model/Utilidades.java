@@ -127,5 +127,14 @@ public class Utilidades {
             }
         }
     }
-   
+    
+    public static boolean probPolenizar(Flor flor, Abeja abeja) {
+        if(flor.getColor() != abeja.getColorPreferencia().getColor()){
+            if (Utilidades.rand.nextInt(100) <= Utilidades.probPolenizarFlor) {
+               return false; 
+            }
+        }
+        return true;
+    }
+
 }
