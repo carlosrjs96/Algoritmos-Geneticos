@@ -18,6 +18,7 @@ public class Campo {
     private Casilla[][] matrizFlores ;
     private Color[][][] historial;
     private Historial historia;
+    private ArrayList<Flor> floresList;
     //ir guardando cada matiz de colores de flores
     
     //private int probCrearFlor;
@@ -30,6 +31,7 @@ public class Campo {
         this.panal = new Panal();
         this.matrizFlores = new Casilla [dimension][dimension];
         this.historia = new Historial();
+        this.floresList = new ArrayList();
         Utilidades.setRangoMaximo(dimension);
         //this.probCrearFlor = 50;
         inicializarMatriz();
@@ -78,6 +80,7 @@ public class Campo {
             if (prob<=Utilidades.probCrearFlor){
                 System.out.println(i++);
                 matrizFlores[par[0]][par[1]] = new Flor(par[0],par[1]);
+                floresList.add((Flor) matrizFlores[par[0]][par[1]]);
             } 
             arrPares.remove(index);
             max = arrPares.size();
@@ -112,8 +115,11 @@ public class Campo {
     
     public void siguienteGeneracion(){
         historia.addGeneracion(this.matrizFlores,panal.getAbejasList());
+        panal.moverAbejas(this.floresList);
         reproducir();
     }
+    
+   
     
     public void reproducir(){
         //acá recorre todas las flores y las reproduce
@@ -153,12 +159,14 @@ public class Campo {
     
     //dada la matriz de cromosomas crea todas las nuevas flores
     private void asignarNuevaGeneracion(ArrayList<String> matrizCromosomas) {
+        floresList.clear();
         for (int i = 0; i < matrizFlores.length; i++) {
             for (int j = 0; j < matrizFlores[i].length; j++) {
                 if (matrizFlores[i][j] instanceof Flor){
                     Color color = Utilidades.getColor(matrizCromosomas.get(0)).getColor();
                     Point punto = new Point(j,i);
                     matrizFlores[i][j] = new Flor(punto, color);
+                    floresList.add((Flor)  matrizFlores[i][j]);
                     matrizCromosomas.remove(0);
                 }
             }
@@ -191,6 +199,7 @@ public class Campo {
         matrizCromosomas.set(par[1], cromosoma);
         
     }
+    
     
     //dado un indice cambia de 0 a 1 en el string
     private void cambiarBit(String cromosoma, int index){

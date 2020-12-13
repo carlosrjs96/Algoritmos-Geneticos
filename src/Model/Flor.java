@@ -54,6 +54,8 @@ public class Flor extends Casilla {
     public Flor getClone() {
         return new Flor(this.color);
     }
+    
+    
 
     //simplemente darle el polen a la flor
     public void polinizada(Color polen) {
@@ -131,6 +133,7 @@ public class Flor extends Casilla {
         
         //generar index random
         int index = Utilidades.rand.nextInt(bitsActual.length());
+        //***********NO ESTA VALIDADDO EN CASO DE UN STRING NULL
         String [] corteActual = Utilidades.cortarCromosoma(bitsActual, index);
         String [] corteCouple = Utilidades.cortarCromosoma(bitsCouple, index);
         
@@ -139,7 +142,7 @@ public class Flor extends Casilla {
         bitsCruzadosCouple.concat(corteCouple[0]).concat(corteActual[1]);
         
         Color color;
-        int num = Utilidades.rand.nextInt(1);
+        int num = Utilidades.rand.nextInt(2);
         if (num==0){//usar bitsCruzadosActual
             return bitsCruzadosActual;
         }else{//usar bitsCruzadosCouple
@@ -192,6 +195,15 @@ public class Flor extends Casilla {
         
         
     }
+
+    public Hashtable<Color, Integer> getPolenGuardado() {
+        return polenGuardado;
+    }
+
+    public void setPolenGuardado(Hashtable<Color, Integer> polenGuardado) {
+        this.polenGuardado = polenGuardado;
+    }
+    
     
     
     
@@ -235,5 +247,22 @@ public class Flor extends Casilla {
         return total;
     }
 
+    
+    public void addPolen (Hashtable<Color, Integer> polenGuardado){
+        Set<Color> keys = polenGuardado.keySet();
+        //para iterar sobre las llaves
+        Iterator<Color> itr = keys.iterator();
+        Color key;
+        while (itr.hasNext()) {
+            int anterior = 0;
+            // Getting Key
+            key = itr.next();
+            if (this.polenGuardado.containsKey(key)){
+                anterior = this.polenGuardado.get(key);
+            }
+            anterior += polenGuardado.get(key);
+            this.polenGuardado.put(key, anterior);
+        } 
+    }
 
 }

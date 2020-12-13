@@ -225,8 +225,32 @@ public class Abeja {
         this.cantFloresVisitadas++;
         if(Utilidades.probPolenizar(flor, this)){
             //AQUI LE INTRODUCE EL POLEN A LA FLOR
+            Hashtable <Color, Integer> flrTmp = (Hashtable <Color, Integer>) flor.getPolenGuardado().clone();
+            Hashtable <Color, Integer> abjTmp = (Hashtable <Color, Integer>) this.polenGuardado.clone();
+            addPolen(flrTmp);
+            flor.addPolen(abjTmp);
         } 
     }
+    
+    //añade el polen de la flor al polen de la abeja
+    public void addPolen (Hashtable<Color, Integer> polenGuardado){
+        Set<Color> keys = polenGuardado.keySet();
+        //para iterar sobre las llaves
+        Iterator<Color> itr = keys.iterator();
+        Color key;
+        while (itr.hasNext()) {
+            int anterior = 0;
+            // Getting Key
+            key = itr.next();
+            if (this.polenGuardado.containsKey(key)){
+                anterior = this.polenGuardado.get(key);
+            }
+            anterior += polenGuardado.get(key);
+            this.polenGuardado.put(key, anterior);
+        } 
+    }
+    
+    
     
     public Color getCromosomaColor( Color mama, Color papa){
         return null;
@@ -359,6 +383,8 @@ public class Abeja {
     public void setDistanciaRecorrida(double distanciaRecorrida) {
         this.distanciaRecorrida = distanciaRecorrida;
     }
+
+    
     
     
     

@@ -279,7 +279,11 @@ public class Panal extends Casilla{
         }
     }
 
-    
+    public void moverAbejas( ArrayList<Flor> flores){
+        for (Abeja abeja : this.abejasList) {
+            abeja.getMover().mover(abeja, this, flores);
+        }
+    }
     
     
     
