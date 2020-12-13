@@ -18,20 +18,19 @@ import java.util.Set;
  */
 public class Flor extends Casilla {
 
-    //private Point point;
+    private Point point;
+
     //(color.getRGB(),cantidad de polen)
     //no recuerdo porque dos Integer
     private Hashtable<Integer, Integer> contenedorPolen = new Hashtable<Integer, Integer>();
 
     private Hashtable<Color, Integer> polenGuardado = new Hashtable<Color, Integer>();
     private Color color;
-    private int x;
-    private int y;
 
-    public Flor(int x, int y) {
-        this.x = x;
-        this.y = y;
-        point = new Point(x, y);
+    
+    public Flor (int x, int y) {
+        point = new Point(x,y);
+
         this.color = Utilidades.getRandomColor().getColor();
     }
 
@@ -90,6 +89,7 @@ public class Flor extends Casilla {
     public void setColor(Color color) {
         this.color = color;
     }
+
 
     //nueva generación
     //el campo debe guardar la mariz de colores
@@ -168,6 +168,7 @@ public class Flor extends Casilla {
                 break;
             }
         }
+
         return bits;
     }
     
@@ -233,5 +234,6 @@ public class Flor extends Casilla {
         }
         return total;
     }
+
 
 }
