@@ -40,5 +40,5 @@ public enum ColorType {
     public void setBits(String bits) {
         this.bits = bits;
     }
-    
+     
 }

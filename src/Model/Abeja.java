@@ -6,8 +6,11 @@
 package Model;
 
 import java.awt.Color;
+import java.math.BigInteger;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Random;
+import java.util.Set;
 
 /**
  *
@@ -27,7 +30,12 @@ public class Abeja {
     private Abeja papaAbeja;
     //(color.getRGB(),cantidad de polen)
     private Hashtable<Integer, Integer> contenedorPolen = new Hashtable<Integer, Integer>();
+    private Hashtable<Color, Integer> polenGuardado = new Hashtable<Color, Integer>();
     private Mover mover;
+    
+    private double indiceAdaptibilidad;
+    private double indiceNormalizado;
+    private Abeja[] antecesores;
     
     public Abeja(){
         colorPreferencia = Utilidades.getRandomColor();
@@ -54,6 +62,118 @@ public class Abeja {
         //this.papa = papa;
         this.setMover(random);
     }
+
+    public Abeja(String string, Abeja[] abejas) {
+        this.antecesores = abejas;
+        mover = getRandomMover();
+        asignarValores(string);
+    }
+    
+    private void asignarValores(String cromosoma){
+        String strColor, strDir, strAng, strDist;
+        strColor = cromosoma.substring(0, 3);
+        strDir = cromosoma.substring(3, 6);
+        strAng = cromosoma.substring(6, 6+9);
+        strDist = cromosoma.substring(6+9);
+        this.colorPreferencia = Utilidades.getColor(strColor);
+        this.direccionPreferencia = Utilidades.getDireccion(strDir);
+        this.anguloApertura = Integer.parseInt(strAng, 2)%360;
+        this.distanciaMax = Integer.parseInt(strDist, 2);
+        
+        
+    }
+    
+     public String aBits(){
+        String bits = "";
+        bits.concat(getBitsColor());
+        bits.concat(getBitsDireccion());
+        bits.concat(getBitsAngulo());
+        bits.concat(getBitsDistancia());
+        return bits;
+    }
+     
+     
+     private String getBitsDistancia(){
+        String bits = "";
+        int dist = (int) this.distanciaMax;
+        
+        
+        
+        bits = new BigInteger(Integer.toString(dist)).toString(2);
+        int num = Utilidades.getCantidadBitsRango() - bits.length();
+        for (int i = 0; i < num; i++) {
+            bits = "0" + bits;
+        }
+        return bits;
+     }
+     
+    //pase el angulo a entero
+    private String getBitsAngulo (){
+        String bits = "";
+        int ang = (int) this.anguloApertura;
+        bits = new BigInteger(Integer.toString(ang)).toString(2);
+        int num = 9 - bits.length();
+        for (int i = 0; i < num; i++) {
+            bits = "0" + bits;
+        }
+        return bits;
+    }
+     
+    private String getBitsDireccion(){
+        String bits = null;
+        for (DireccionType direccionEnum : DireccionType.values()) {
+            if (direccionEnum.equals(this.direccionPreferencia)){
+                bits = direccionEnum.getBits();
+                break;
+            }
+        }
+        return bits;
+    }
+     
+     
+    private String getBitsColor(){
+        String bits = null;
+        for (ColorType colorEnum : ColorType.values()) {
+            if (colorEnum.equals(this.colorPreferencia)){
+                bits = colorEnum.getBits();
+                break;
+            }
+        }
+        return bits;
+    }
+    
+    
+    
+    public void asignarAdaptabilidad(){
+        indiceAdaptibilidad = (double) getDistaciaRecorrida() / getFloresVisitadas();
+    }
+    
+    public void asignarAdaptabilidadNormalizada (double sumaIndices){
+        indiceNormalizado = (double) indiceAdaptibilidad / sumaIndices;
+    }
+    
+    private double getDistaciaRecorrida(){
+        double distancia = 0.0;
+        return distancia;
+    }
+    
+    private double getFloresVisitadas(){
+        int total = 0;
+        Color key;
+        //obtengo todas las llaves
+        Set<Color> keys = polenGuardado.keySet();
+        //para iterar sobre las llaves
+        Iterator<Color> itr = keys.iterator();
+
+        //recorre el iterador
+        while (itr.hasNext()) {
+            // Getting Key
+            key = itr.next();
+            total += polenGuardado.get(key);
+        }
+        return total;
+    }
+    
     
     private Mover getRandomMover(){
         int num = Utilidades.rand.nextInt(3);
@@ -71,6 +191,32 @@ public class Abeja {
         }
         return mover;
     }
+
+    public Hashtable<Color, Integer> getPolenGuardado() {
+        return polenGuardado;
+    }
+
+    public void setPolenGuardado(Hashtable<Color, Integer> polenGuardado) {
+        this.polenGuardado = polenGuardado;
+    }
+
+    public double getIndiceAdaptibilidad() {
+        return indiceAdaptibilidad;
+    }
+
+    public void setIndiceAdaptibilidad(double indiceAdaptibilidad) {
+        this.indiceAdaptibilidad = indiceAdaptibilidad;
+    }
+
+    public double getIndiceNormalizado() {
+        return indiceNormalizado;
+    }
+
+    public void setIndiceNormalizado(double indiceNormalizado) {
+        this.indiceNormalizado = indiceNormalizado;
+    }
+    
+    
     
     
     
