@@ -17,6 +17,7 @@ public class Campo {
     private Panal panal;
     private Casilla[][] matrizFlores ;
     private Color[][][] historial;
+    private Historial historia;
     //ir guardando cada matiz de colores de flores
     
     //private int probCrearFlor;
@@ -28,6 +29,7 @@ public class Campo {
     public Campo (int dimension, int pobFlores) {
         this.panal = new Panal();
         this.matrizFlores = new Casilla [dimension][dimension];
+        this.historia = new Historial();
         Utilidades.setRangoMaximo(dimension);
         //this.probCrearFlor = 50;
         inicializarMatriz();
@@ -108,8 +110,16 @@ public class Campo {
         }
     }
     
+    public void siguienteGeneracion(){
+        historia.addGeneracion(this.matrizFlores,panal.getAbejasList());
+        reproducir();
+    }
+    
     public void reproducir(){
         //acá recorre todas las flores y las reproduce
+        
+        reproducirFlores();
+        panal.reproducir();
         //acá llama al panal y reproduce las abejas
     }
     
@@ -129,6 +139,114 @@ public class Campo {
     public void setMatrizFlores(Casilla[][] matrizFlores) {
         this.matrizFlores = matrizFlores;
     }
+    
+    //se encarga de reproducir las dlores
+    public void reproducirFlores(){
+        ArrayList<String> matrizCromosomas = getCromosomasFlores();
+        int mutaciones = getMutaciones();
+        if (mutaciones != 0){
+            asignarMutaciones(matrizCromosomas, mutaciones);
+        }
+        asignarNuevaGeneracion(matrizCromosomas);
+        
+    }
+    
+    //dada la matriz de cromosomas crea todas las nuevas flores
+    private void asignarNuevaGeneracion(ArrayList<String> matrizCromosomas) {
+        for (int i = 0; i < matrizFlores.length; i++) {
+            for (int j = 0; j < matrizFlores[i].length; j++) {
+                if (matrizFlores[i][j] instanceof Flor){
+                    Color color = Utilidades.getColor(matrizCromosomas.get(0)).getColor();
+                    Point punto = new Point(j,i);
+                    matrizFlores[i][j] = new Flor(punto, color);
+                    matrizCromosomas.remove(0);
+                }
+            }
+        }
+        
+    }
+    
+    //dada la cantidad de mutaciones las asigna a los bits
+    private void asignarMutaciones (ArrayList<String> matrizCromosomas, int cantidadMutaciones){
+        //todas las posiciones donde su mutara
+        ArrayList<int[]> posiciones = getAllPositions(matrizCromosomas.get(0).length(), matrizCromosomas.size());
+        int index;
+        int[] par;
+        while (cantidadMutaciones>0){
+            index = Utilidades.rand.nextInt(posiciones.size());
+            par = posiciones.get(index);
+            mutar (matrizCromosomas, par);
+            posiciones.remove(index);  
+            cantidadMutaciones--;
+        }
+    }
+    
+    //aplica la mutación en donde se indica en el par
+    //mutacion pasa de 0 a 1 o al revez
+    private void mutar(ArrayList<String> matrizCromosomas, int[] par){
+        String cromosoma = matrizCromosomas.get(par[1]);
+        int index = par [0];
+        cambiarBit(cromosoma, index);
+        
+        matrizCromosomas.set(par[1], cromosoma);
+        
+    }
+    
+    //dado un indice cambia de 0 a 1 en el string
+    private void cambiarBit(String cromosoma, int index){
+        Character letra = cromosoma.charAt(index);
+        String nueva;
+        if (letra.equals('0')){
+            nueva = "1";
+        }
+        else {//es '1'
+            nueva = "0";   
+        }
+        cromosoma = cromosoma.substring(0, index) 
+                    + nueva
+                    + cromosoma.substring(index + 1); 
+    }
+    
+    
+    //dado dos dimensiones
+    //retorna un arraylist con toda la cantidad de pares dentro
+    private ArrayList<int[]> getAllPositions (int x, int y){
+        ArrayList<int[]> pares = new ArrayList();
+        for (int i = 0; i < y; i++) {
+            for (int j = 0; j < x; j++) {
+                int [] par = {j,i};
+                pares.add(par);
+            }
+        }
+        return pares;
+    }
+    
+    //me da un numero random para la cantidad de mutaciones
+    private int getMutaciones(){
+        return Utilidades.rand.nextInt(Utilidades.maxMutaFlor);
+    }
+    
+    
+    //me da una matriz con los cromosomas de todas las flores
+    //los cromosomas ya están cruzados
+    public ArrayList<String> getCromosomasFlores(){
+        
+        ArrayList<String> matrizCromosomas = new ArrayList();
+        Flor flor;
+        
+        for (int i = 0; i < matrizFlores.length; i++) {
+            for (int j = 0; j < matrizFlores[i].length; j++) {
+                if (matrizFlores[i][j] instanceof Flor){
+                    flor = (Flor) matrizFlores[i][j];
+                    matrizCromosomas.add(flor.getCromosoma());
+                }
+            }
+        }
+        return matrizCromosomas;
+        
+    }
+
+
 
 
    

@@ -6,7 +6,11 @@
 package Model;
 
 import java.awt.Color;
+
+import java.math.BigInteger;
+
 import java.util.ArrayList;
+
 import java.util.Random;
 
 /**
@@ -18,7 +22,12 @@ public class Utilidades {
     public static final Random rand = new Random();
     public static double rangoMaximo = -1;
     public static int probCrearFlor = 50;
+
+    public static int maxMutaFlor = 10;
+    public static int maxMutaAbeja = 10;
+
     public static int probPolenizarFlor = 50;
+
     
     public static ColorType getRandomColor(){
         
@@ -42,6 +51,50 @@ public class Utilidades {
         rangoMaximo = hipotenusa;  
     }
     
+
+    //corta el cromosoma
+    //index = 6
+    //string = "100100|100101001"
+    //          012345|6789
+    public static String[] cortarCromosoma(String cromosoma, int index){
+        String primerParte = cromosoma.substring(0, index);
+        String segundaParte = cromosoma.substring(index);
+        String[] arrString = new String [2];
+        arrString[0] = primerParte;
+        arrString[1] = segundaParte;
+        return arrString;
+    }
+    
+    
+    //dado un string que representa el color en bits
+    //retorna el colo
+    public static ColorType getColor(String bits){
+        for (ColorType color: ColorType.values()) {
+            if (color.getBits().equals(bits)){
+                return color;
+            }
+        }
+        return null;
+    }
+    
+    public static DireccionType getDireccion(String bits){
+        for (DireccionType dir: DireccionType.values()) {
+            if (dir.getBits().equals(bits)){
+                return dir;
+            }
+        }
+        return null;
+    }
+    
+    public static int getCantidadBitsRango(){
+        double rang = Math.ceil(rangoMaximo);
+        int r = (int) rang;
+        String bits = new BigInteger(Integer.toString(r)).toString(2);
+        return bits.length();
+        
+    }
+    
+
     public static double distance(Point a,Point b){
         double distance = Math.sqrt(Math.pow(b.x-a.x,2)+Math.pow(b.y-a.y,2));
         //System.out.println("Distancia: "+distance);
@@ -64,6 +117,7 @@ public class Utilidades {
         Point point = new Point((pCentral.x+Math.cos(angle_div)*dist),(pCentral.y+Math.sin(angle_div)*dist)); 
         return point;
     }
+
     
     public static boolean pointInCircle(double radius,Point p1, Point p2) {
         return ( Utilidades.distance(p1, p2) < radius );
