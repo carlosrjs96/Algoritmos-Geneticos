@@ -26,7 +26,17 @@ public class MoverAnchura extends Mover{
             }
         }
         
-        Utilidades.sortByDistance(listFloresInRange, panal.getPoint());//ordena las flores por distancia con respecto al panal
+        double angle;
+        Point ladoPoint;
+        if(Utilidades.rand.nextInt(2) == 1){
+            angle = Math.abs(abeja.getDireccionPreferencia().getDireccion() - abeja.getAnguloApertura()/2);
+            ladoPoint = Utilidades.calculatePoint(angle, panal.getPoint(), abeja.getDistanciaMax());
+        }else{
+            angle = Math.abs(abeja.getDireccionPreferencia().getDireccion() + abeja.getAnguloApertura()/2);
+            ladoPoint = Utilidades.calculatePoint(angle, panal.getPoint(), abeja.getDistanciaMax());
+        }
+        
+        Utilidades.sortByDistance(listFloresInRange, ladoPoint);//ordena las flores por distancia con respecto al panal
         
         for (Flor flor : listFloresInRange) {
             double distance = Utilidades.distance(abeja.getPoint(), flor.getPoint());//distancia recorrida
@@ -34,10 +44,9 @@ public class MoverAnchura extends Mover{
             abeja.setPoint(flor.getPoint());//se posiciona en la flor que visito
             abeja.setDistanciaRecorrida(abeja.getDistanciaRecorrida() + distance);//añade la distancia que recorrio
         }
-        
+        double distance = Utilidades.distance(abeja.getPoint(), panal.getPoint());//distancia recorrida
+        abeja.setDistanciaRecorrida(abeja.getDistanciaRecorrida() + distance);
         abeja.setPoint(panal.getPoint());//devuelve la abeja al panal
         
     }
-
-    
 }

@@ -23,9 +23,15 @@ public class MoverProfundidad  extends Mover{
             }
         }
         
-        Point pointProfundidad = Utilidades.calculatePoint(abeja.getDireccionPreferencia().getDireccion(),
+        Point pointProfundidad;
+        
+        if(Utilidades.rand.nextInt(2) == 1){
+            pointProfundidad = Utilidades.calculatePoint(abeja.getDireccionPreferencia().getDireccion(),
                                                             panal.getPoint(),
                                                             abeja.getDistanciaMax());
+        }else{
+            pointProfundidad = panal.getPoint();
+        }
         
         Utilidades.sortByDistance(listFloresInRange, pointProfundidad);//ordena las flores por distancia con respecto al fondo del rango de la abeja
 

@@ -126,8 +126,8 @@ public class Utilidades {
     public static boolean pointInRangeRadio(Abeja abeja, Panal panal, Point point) {
         double radius = abeja.getDistanciaMax();
         Point pCentre = panal.getPoint();
-        double min = Math.abs(abeja.getDireccionPreferencia().getDireccion() - abeja.getAnguloApertura());
-        double max = Math.abs(abeja.getDireccionPreferencia().getDireccion() + abeja.getAnguloApertura());
+        double min = Math.abs(abeja.getDireccionPreferencia().getDireccion() - abeja.getAnguloApertura()/2);
+        double max = Math.abs(abeja.getDireccionPreferencia().getDireccion() + abeja.getAnguloApertura()/2);
         double anglePoint = Utilidades.calculateAngle(pCentre, point);
         
         while ( min >= max ){

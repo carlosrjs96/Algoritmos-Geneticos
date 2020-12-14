@@ -17,7 +17,7 @@ import java.util.Collections;
  */
 public class AlgoritmosGeneticos {
     public static void main(String[] args) {
-        //new Controlador();
+        new Controlador();
 
         BigInteger bigNum = new BigInteger("360");
         String str = bigNum.toString(2);
