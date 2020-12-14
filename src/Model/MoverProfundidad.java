@@ -41,9 +41,9 @@ public class MoverProfundidad  extends Mover{
             abeja.setPoint(flor.getPoint());//se posiciona en la flor que visito
             abeja.setDistanciaRecorrida(abeja.getDistanciaRecorrida() + distance);//añade la distancia que recorrio
         }
-
+        double distance = Utilidades.distance(abeja.getPoint(), panal.getPoint());//distancia recorrida
+        abeja.setDistanciaRecorrida(abeja.getDistanciaRecorrida() + distance);
         abeja.setPoint(panal.getPoint());//devuelve la abeja al panal
-
     }
     
     
