@@ -34,8 +34,6 @@ public class Mapa extends javax.swing.JFrame {
         pnlCampo.setLayout(new GridLayout(dimension, dimension,1,1));
         pnlArray = new JPanel[dimension][dimension];
         int btnDim = 700 / dimension;
-        System.out.println("dim btn");
-        System.out.println(btnDim);
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
                 pnlArray[i][j] = new JPanel();
@@ -71,6 +69,10 @@ public class Mapa extends javax.swing.JFrame {
         btnEmpezar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtNumGeneraciones = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtGenActual = new javax.swing.JTextField();
+        btnAnterior = new javax.swing.JButton();
+        btnSiguiente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,6 +91,7 @@ public class Mapa extends javax.swing.JFrame {
 
         jLabel1.setText("Dimension : ");
 
+        txtDimension.setText("5");
         txtDimension.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDimensionActionPerformed(evt);
@@ -101,17 +104,39 @@ public class Mapa extends javax.swing.JFrame {
 
         jLabel4.setText("Max. Flores : ");
 
+        txtPobAbejas.setText("4");
         txtPobAbejas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPobAbejasActionPerformed(evt);
             }
         });
 
+        txtPobFlores.setText("20");
+
         btnCargar.setText("Cargar");
 
         btnEmpezar.setText("Empezar");
 
         jLabel5.setText("Num. Generaciones :");
+
+        txtNumGeneraciones.setText("3");
+        txtNumGeneraciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumGeneracionesActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Gen. Actual : ");
+
+        txtGenActual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtGenActualActionPerformed(evt);
+            }
+        });
+
+        btnAnterior.setText("Anterior");
+
+        btnSiguiente.setText("Siguiente");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -144,7 +169,15 @@ public class Mapa extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnCargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtNumGeneraciones)
-                            .addComponent(btnEmpezar, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))))
+                            .addComponent(btnEmpezar, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAnterior, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSiguiente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtGenActual))))
                 .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
@@ -178,7 +211,15 @@ public class Mapa extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addComponent(btnCargar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEmpezar)))
+                        .addComponent(btnEmpezar)
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtGenActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAnterior)
+                            .addComponent(btnSiguiente))))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
@@ -192,6 +233,14 @@ public class Mapa extends javax.swing.JFrame {
     private void txtPobAbejasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPobAbejasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPobAbejasActionPerformed
+
+    private void txtGenActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGenActualActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtGenActualActionPerformed
+
+    private void txtNumGeneracionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumGeneracionesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumGeneracionesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -254,7 +303,7 @@ public class Mapa extends javax.swing.JFrame {
     
     public int getDimension () {
          int num = validateInt(txtDimension.getText());
-        if ((num % 2) == 1 ){
+        if ((num % 2) == 0 ){
             num++;
         }
        return num;
@@ -269,15 +318,19 @@ public class Mapa extends javax.swing.JFrame {
 
     public JPanel[][] pnlArray;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnAnterior;
     public javax.swing.JButton btnCargar;
     public javax.swing.JButton btnEmpezar;
+    public javax.swing.JButton btnSiguiente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     public javax.swing.JPanel pnlCampo;
     public javax.swing.JTextField txtDimension;
+    public javax.swing.JTextField txtGenActual;
     public javax.swing.JTextField txtNumGeneraciones;
     public javax.swing.JTextField txtPobAbejas;
     public javax.swing.JTextField txtPobFlores;

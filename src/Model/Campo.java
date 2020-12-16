@@ -16,33 +16,28 @@ import java.util.Random;
 public class Campo {
     private Panal panal;
     private Casilla[][] matrizFlores ;
-    private Color[][][] historial;
+    //private Color[][][] historial;
     private Historial historia;
     private ArrayList<Flor> floresList;
+    private int numGen;
     //ir guardando cada matiz de colores de flores
     
     //private int probCrearFlor;
     
     public Campo(){
-        
-    }
-    
-    public Campo (int dimension, int pobFlores) {
         this.panal = new Panal();
-        this.matrizFlores = new Casilla [dimension][dimension];
         this.historia = new Historial();
         this.floresList = new ArrayList();
-        Utilidades.setRangoMaximo(dimension);
-        //this.probCrearFlor = 50;
-        inicializarMatriz();
-        setPanalCentro();
-        cargarFlores(pobFlores);
         
     }
     
-    public void iniciarTodo(int dimension, int pobFlores, int pobAbejas) {
+   
+    
+    public void iniciarTodo(int dimension, int pobFlores, int pobAbejas, int numGen) {
+        this.numGen = numGen;
         this.panal = new Panal();
         this.matrizFlores = new Casilla [dimension][dimension];
+        this.floresList = new ArrayList();
         Utilidades.setRangoMaximo(dimension);
         
         //this.probCrearFlor = 50;
@@ -78,7 +73,6 @@ public class Campo {
             par = arrPares.get(index);
             prob = Utilidades.rand.nextInt(100);
             if (prob<=Utilidades.probCrearFlor){
-                System.out.println(i++);
                 matrizFlores[par[0]][par[1]] = new Flor(par[0],par[1]);
                 floresList.add((Flor) matrizFlores[par[0]][par[1]]);
             } 
@@ -113,9 +107,19 @@ public class Campo {
         }
     }
     
+    public void simular(){
+        while(this.numGen > 0 ){
+            siguienteGeneracion();
+            this.numGen --;
+        }
+    }
+    
     public void siguienteGeneracion(){
+       //hace copia de generacion actual
         historia.addGeneracion(this.matrizFlores,panal.getAbejasList());
+        //las abejas visitan las flores
         panal.moverAbejas(this.floresList);
+        //todo se reproduce
         reproducir();
     }
     
@@ -149,6 +153,7 @@ public class Campo {
     //se encarga de reproducir las dlores
     public void reproducirFlores(){
         ArrayList<String> matrizCromosomas = getCromosomasFlores();
+        
         int mutaciones = getMutaciones();
         if (mutaciones != 0){
             asignarMutaciones(matrizCromosomas, mutaciones);
@@ -253,6 +258,16 @@ public class Campo {
         }
         return matrizCromosomas;
         
+    }
+
+
+
+    public Historial getHistoria() {
+        return historia;
+    }
+
+    public void setHistoria(Historial historia) {
+        this.historia = historia;
     }
 
 

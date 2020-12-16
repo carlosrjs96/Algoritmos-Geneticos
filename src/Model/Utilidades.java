@@ -21,7 +21,7 @@ public class Utilidades {
     
     public static final Random rand = new Random();
     public static double rangoMaximo = -1;
-    public static int probCrearFlor = 50;
+    public static int probCrearFlor = 100;
 
     public static int maxMutaFlor = 10;
     public static int maxMutaAbeja = 10;
@@ -96,6 +96,8 @@ public class Utilidades {
     
 
     public static double distance(Point a,Point b){
+        //System.out.println("a : " + a.toString());
+        //System.out.println("b : " + b.toString());
         double distance = Math.sqrt(Math.pow(b.x-a.x,2)+Math.pow(b.y-a.y,2));
         //System.out.println("Distancia: "+distance);
         return distance;
@@ -120,7 +122,7 @@ public class Utilidades {
 
     
     public static boolean pointInCircle(double radius,Point p1, Point p2) {
-        return ( Utilidades.distance(p1, p2) < radius );
+        return Utilidades.distance(p1, p2) < radius ;
     }
     
     public static boolean pointInRangeRadio(Abeja abeja, Panal panal, Point point) {
@@ -129,14 +131,14 @@ public class Utilidades {
         double min = Math.abs(abeja.getDireccionPreferencia().getDireccion() - abeja.getAnguloApertura()/2);
         double max = Math.abs(abeja.getDireccionPreferencia().getDireccion() + abeja.getAnguloApertura()/2);
         double anglePoint = Utilidades.calculateAngle(pCentre, point);
-        
+
         while ( min >= max ){
             max += 360;
         }
         while ( min >= anglePoint ){
             anglePoint += 360;
-        }
-        if(min >= anglePoint && max <= anglePoint){
+        }        
+        if(anglePoint >= min && anglePoint <= max){
             return Utilidades.pointInCircle(radius, pCentre, point);
         }
         return false; 
@@ -189,6 +191,12 @@ public class Utilidades {
             }
         }
         return true;
+    }
+    
+    public static double setRangoMaximo(){
+        double min = 1.5;
+        double max = rangoMaximo;
+        return (rand.nextFloat()* (max - min)) + min;
     }
 
 }

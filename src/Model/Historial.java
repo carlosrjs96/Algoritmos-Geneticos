@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class Historial {
     private ArrayList<Generacion> generaciones;
+    int index = 0;
     
     public Historial (){
         generaciones = new ArrayList();
@@ -31,6 +32,25 @@ public class Historial {
         Generacion newG = new Generacion(gen);
         newG.setAbejasGeneraciones(abejasList);
         newG.setFloresGeneraciones(matrizFlores);
+        generaciones.add(newG);
+    }
+    
+    public void decIndex(){
+        index--;
+        if (index<0){
+            index = 0;
+        }
+    }
+    
+    public void incIndex(){
+        index++;
+        if (index>=generaciones.size()){
+            index = generaciones.size() -1;
+        }
+    }
+    
+    public Generacion getGeneracion(){
+        return generaciones.get(index);
     }
     
 }

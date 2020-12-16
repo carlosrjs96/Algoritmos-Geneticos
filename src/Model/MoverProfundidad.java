@@ -15,6 +15,7 @@ public class MoverProfundidad  extends Mover{
     
     @Override
     public void mover(Abeja abeja, Panal panal, ArrayList<Flor> listFlores) {
+        System.out.println("profundidad");
         ArrayList<Flor> listFloresInRange = new ArrayList<Flor>();
 
         for (Flor flor : listFlores) {
@@ -37,6 +38,7 @@ public class MoverProfundidad  extends Mover{
 
         for (Flor flor : listFloresInRange) {
             double distance = Utilidades.distance(abeja.getPoint(), flor.getPoint());//distancia recorrida
+            System.out.println("profun : " + distance);
             abeja.visitarFlor(flor);//visita la flor
             abeja.setPoint(flor.getPoint());//se posiciona en la flor que visito
             abeja.setDistanciaRecorrida(abeja.getDistanciaRecorrida() + distance);//añade la distancia que recorrio

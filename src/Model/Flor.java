@@ -117,7 +117,6 @@ public class Flor extends Casilla {
             cromosoma = getBitsColor(Utilidades.getRandomColor().getColor()); 
         } else {//hay polen
             cromosoma = cruzarCromosoma();
-
         }
         return cromosoma;
     }
@@ -138,9 +137,8 @@ public class Flor extends Casilla {
         String [] corteCouple = Utilidades.cortarCromosoma(bitsCouple, index);
         
         //acá los cruza
-        bitsCruzadosActual.concat(corteActual[0]).concat(corteCouple[1]);
-        bitsCruzadosCouple.concat(corteCouple[0]).concat(corteActual[1]);
-        
+        bitsCruzadosActual = bitsCruzadosActual.concat(corteActual[0]).concat(corteCouple[1]);
+        bitsCruzadosCouple = bitsCruzadosCouple.concat(corteCouple[0]).concat(corteActual[1]);
         Color color;
         int num = Utilidades.rand.nextInt(2);
         if (num==0){//usar bitsCruzadosActual

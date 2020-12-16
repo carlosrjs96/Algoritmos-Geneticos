@@ -39,18 +39,32 @@ public class Controlador implements ActionListener{
     private void _init_() {
         this.mapa.btnCargar.addActionListener(this);
         this.mapa.btnEmpezar.addActionListener(this);
+        this.mapa.btnAnterior.addActionListener(this);
+        this.mapa.btnSiguiente.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(this.mapa.btnCargar)){
             mapa.createCampo();
-            this.campo.iniciarTodo(mapa.getDimension(), mapa.getPobFlores(), mapa.getPobAbejas());
+            this.campo.iniciarTodo(mapa.getDimension(), mapa.getPobFlores(), mapa.getPobAbejas(), mapa.getNumGeneraciones());
             //
             update();
+            System.out.println("eliminar luego");
+            this.campo.simular();
         }
         else if (e.getSource().equals(this.mapa.btnEmpezar)){
-            
+            this.campo.simular();
+        }
+        else if(e.getSource().equals(this.mapa.btnAnterior)){
+            this.campo.getHistoria().decIndex();
+            Color[][] m = this.campo.getHistoria().getGeneracion().getFloresGeneraciones();
+            updateMapa(m);
+        }
+        else if (e.getSource().equals(this.mapa.btnSiguiente)){
+            this.campo.getHistoria().incIndex();
+            Color[][] m = this.campo.getHistoria().getGeneracion().getFloresGeneraciones();
+            updateMapa(m);
         }
     }
 
@@ -79,6 +93,15 @@ public class Controlador implements ActionListener{
                 }
             }
             
+        }
+    }
+    
+    
+    private void updateMapa(Color[][] matrizFlores){
+        for (int i = 0; i < matrizFlores.length; i++) {
+            for (int j = 0; j < matrizFlores[i].length; j++) {
+                mapa.pnlArray[i][j].setBackground(matrizFlores[i][j]);
+            }
         }
     }
     

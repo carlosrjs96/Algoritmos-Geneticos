@@ -20,6 +20,7 @@ public class Generacion {
     
     public Generacion (int gen){
         this.gen = gen;
+        this.abejasGeneraciones = new ArrayList();
     }
 
     public ArrayList<Abeja> getAbejasGeneraciones() {
@@ -27,6 +28,7 @@ public class Generacion {
     }
 
     public void setAbejasGeneraciones(ArrayList<Abeja> abejasGeneraciones) {
+        this.abejasGeneraciones = new ArrayList();
         setPromedioAdaptabilidad (abejasGeneraciones);
         this.abejasGeneraciones = abejasGeneraciones;
     }
@@ -36,7 +38,8 @@ public class Generacion {
     }
 
     public void setFloresGeneraciones(Casilla[][] casillas) {
-        int num = floresGeneraciones.length;
+        int num = casillas.length;
+        this.floresGeneraciones = new Color[num][num]; 
         Color[][] campo = new Color[num][num];
         for (int i = 0; i < num; i++) {
             for (int j = 0; j < num; j++) {
@@ -54,7 +57,7 @@ public class Generacion {
         }
         
         
-        this.floresGeneraciones = floresGeneraciones;
+        this.floresGeneraciones = campo;
     }
 
     private void setPromedioAdaptabilidad(ArrayList<Abeja> abejasGeneraciones) {

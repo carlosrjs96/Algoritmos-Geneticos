@@ -17,6 +17,7 @@ import java.util.Set;
  * @author Carlos
  */
 public class Abeja {
+    private int numAbeja;
     private Point point;
     private ColorType colorPreferencia;
     //no recuerdo para que servia esta direccion
@@ -43,15 +44,19 @@ public class Abeja {
     private double indiceNormalizado;
     private Abeja[] antecesores;
     
-    public Abeja(){
+    public Abeja(Point punto, int numAbeja){
+        this.numAbeja = numAbeja;
+        this.point = punto;
         colorPreferencia = Utilidades.getRandomColor();
         direccionPreferencia = Utilidades.getRandomDireccion();
         //obtener la distancia maxima desde el centro del panal hasta el extremo
-        distanciaMax = Utilidades.rand.nextInt((int)Utilidades.rangoMaximo);
+        distanciaMax = Utilidades.setRangoMaximo();
         anguloApertura = Utilidades.rand.nextInt(180);
         mamaAbeja = null;
         papaAbeja = null;
-        mover = getRandomMover();
+        this.mover = new MoverRandom();
+        System.out.println("cambiar esto luego");
+        //mover = getRandomMover();
     }
     
     public Abeja(Point point, ColorType color, DireccionType direccion,
@@ -63,7 +68,9 @@ public class Abeja {
         this.distanciaMax = distanciaMax;
         //this.mama = mama;
         //this.papa = papa;
-        this.setMover(random);
+        this.mover = new MoverRandom();
+        System.out.println("cambiar esto luego");
+        //this.setMover(random);
     }
 
     public Abeja(String string, Abeja[] abejas) {
@@ -88,10 +95,10 @@ public class Abeja {
     
      public String aBits(){
         String bits = "";
-        bits.concat(getBitsColor());
-        bits.concat(getBitsDireccion());
-        bits.concat(getBitsAngulo());
-        bits.concat(getBitsDistancia());
+        bits = bits.concat(getBitsColor());
+        bits = bits.concat(getBitsDireccion());
+        bits = bits.concat(getBitsAngulo());
+        bits = bits.concat(getBitsDistancia());
         return bits;
     }
      
@@ -148,16 +155,34 @@ public class Abeja {
     
     
     public void asignarAdaptabilidad(){
-        indiceAdaptibilidad = (double) getDistaciaRecorrida() / getFloresVisitadas();
+        //System.out.println(" dis. recorrida "+ this.numAbeja + " : " + this.distanciaRecorrida);
+        //System.out.println("cant visitadas : " + getFloresVisitadas());
+        
+        if (getFloresVisitadas() == 0 || getDistaciaRecorrida() == 0){
+            System.out.println("0");
+            indiceAdaptibilidad = 0;
+        }
+        else {
+            System.out.println(getDistaciaRecorrida() / getFloresVisitadas());
+            indiceAdaptibilidad = (double) getDistaciaRecorrida() / getFloresVisitadas();
+        }
     }
     
     public void asignarAdaptabilidadNormalizada (double sumaIndices){
-        indiceNormalizado = (double) indiceAdaptibilidad / sumaIndices;
+        System.out.println("adap : " + indiceAdaptibilidad);
+        if (indiceAdaptibilidad==0){
+            indiceNormalizado = 0;
+        }
+        else {
+            indiceNormalizado = (double) indiceAdaptibilidad / sumaIndices;
+        }
+        
+        System.out.println(indiceNormalizado);
     }
     
     private double getDistaciaRecorrida(){
-        double distancia = 0.0;
-        return distancia;
+        
+        return this.distanciaRecorrida;
     }
     
     private double getFloresVisitadas(){
@@ -227,9 +252,19 @@ public class Abeja {
             //AQUI LE INTRODUCE EL POLEN A LA FLOR
             Hashtable <Color, Integer> flrTmp = (Hashtable <Color, Integer>) flor.getPolenGuardado().clone();
             Hashtable <Color, Integer> abjTmp = (Hashtable <Color, Integer>) this.polenGuardado.clone();
-            addPolen(flrTmp);
+            addPolen(flor.getColor());
             flor.addPolen(abjTmp);
         } 
+    }
+    
+    
+    public void addPolen(Color key){
+        int anterior = 0;
+        if (this.polenGuardado.containsKey(key)){
+                anterior = this.polenGuardado.get(key);
+        }
+        anterior += 1;
+        this.polenGuardado.put(key, anterior);
     }
     
     //añade el polen de la flor al polen de la abeja
@@ -245,7 +280,7 @@ public class Abeja {
             if (this.polenGuardado.containsKey(key)){
                 anterior = this.polenGuardado.get(key);
             }
-            anterior += polenGuardado.get(key);
+            anterior += polenGuardado.get(key);//este se refiere a la entrada
             this.polenGuardado.put(key, anterior);
         } 
     }
@@ -382,6 +417,14 @@ public class Abeja {
 
     public void setDistanciaRecorrida(double distanciaRecorrida) {
         this.distanciaRecorrida = distanciaRecorrida;
+    }
+
+    public int getNumAbeja() {
+        return numAbeja;
+    }
+
+    public void setNumAbeja(int numAbeja) {
+        this.numAbeja = numAbeja;
     }
 
     
