@@ -96,8 +96,7 @@ public class Utilidades {
     
 
     public static double distance(Point a,Point b){
-        //System.out.println("a : " + a.toString());
-        //System.out.println("b : " + b.toString());
+        
         double distance = Math.sqrt(Math.pow(b.x-a.x,2)+Math.pow(b.y-a.y,2));
         //System.out.println("Distancia: "+distance);
         return distance;

@@ -58,6 +58,7 @@ public class Panal extends Casilla{
         for (int i = 0; i < strParejas.size(); i++) {
             for (int j = 0; j < strParejas.get(i).length; j++) {
                 str.add(strParejas.get(i)[j]);
+                System.out.println(strParejas.get(i)[j]);
             }
         }
         System.out.println("cant. crom : " + str.size());
@@ -65,7 +66,18 @@ public class Panal extends Casilla{
         asignarMutaciones (str, getMutaciones());
         
         //cargar str al formato de strparejas
+        for (int i = 0; i < strParejas.size(); i++) {
+            for (int j = 0; j < strParejas.get(i).length; j++) {
+                System.out.println(strParejas.get(i)[j]);
+            }
+        }
         
+        strParejas.clear();
+        for (int i = 0; i < str.size(); i+=2) {
+            String [] sPar = {str.get(i), str.get(i+1)};
+            strParejas.add(sPar);
+        }
+        System.out.println("");
         
         
         
@@ -79,6 +91,7 @@ public class Panal extends Casilla{
         ArrayList<int[]> posiciones = getAllPositions(matrizCromosomas.get(0).length(), matrizCromosomas.size());
         int index;
         int[] par;
+        System.out.println("cant muta : " + cantidadMutaciones );
         while (cantidadMutaciones>0){
             index = Utilidades.rand.nextInt(posiciones.size());
             par = posiciones.get(index);
@@ -141,7 +154,9 @@ public class Panal extends Casilla{
         ArrayList<Abeja> nuevaGeneracion = new ArrayList();
         for (int i = 0; i < strParejas.size(); i++) {
             for (int j = 0; j < strParejas.get(i).length; j++) {
-                nuevaGeneracion.add(new Abeja(strParejas.get(i)[j], parejas.get(i)));
+                System.out.println(" i : " + i +  " j : " + j);
+                int pos = i * 2 + j;
+                nuevaGeneracion.add(new Abeja(strParejas.get(i)[j], parejas.get(i), this.point,pos ));
             }
         }
         this.abejasList = nuevaGeneracion;
@@ -257,10 +272,15 @@ public class Panal extends Casilla{
         ArrayList<Double> randoms = getRandoms();
         System.out.println("# randoms : " + randoms.size());
         Collections.sort(randoms);
+        System.out.println("randoms");
+        for (int i = 0; i < randoms.size(); i++) {
+            System.out.println(randoms.get(i));
+        }
         
         double sumas = 0.0;
-        for (int i = 0; i < randoms.size(); i++){
+        for (int i = 0; i < abejasList.size(); i++){
             sumas += abejasList.get(i).getIndiceNormalizado();
+            System.out.println(i+ " indice = " + abejasList.get(i).getIndiceNormalizado());
             cantidadAbeja.add(getVecesDentro(randoms,sumas));
         }
         
@@ -276,16 +296,21 @@ public class Panal extends Casilla{
     //cantidad de veces que se reproducira la abeja
     private Integer getVecesDentro(ArrayList<Double> randoms, double techo) {
         int veces = 0;
+        int i = 0;
         System.out.println("# randoms : " + randoms.size());
         System.out.println("techo : " + techo);
+        
         if (randoms.isEmpty()){
             return 0;
         }
-        System.out.println(randoms.get(0));
-        while(randoms.get(0) < techo){
+        while(randoms.get(i) < techo){
+            System.out.println(randoms.get(0));
             if (randoms.get(0)< techo){
                 veces++;
                 randoms.remove(0);
+            }
+            if (randoms.isEmpty()){
+                break;
             }
                 
         }
@@ -317,7 +342,6 @@ public class Panal extends Casilla{
 
     public void moverAbejas( ArrayList<Flor> flores){
         for (Abeja abeja : this.abejasList) {
-            System.out.println("abeja " + abeja.getNumAbeja());
             abeja.getMover().mover(abeja, this, flores);
         }
     }

@@ -73,9 +73,13 @@ public class Abeja {
         //this.setMover(random);
     }
 
-    public Abeja(String string, Abeja[] abejas) {
+    public Abeja(String string, Abeja[] abejas,Point punto, int numAbeja) {
         this.antecesores = abejas;
-        mover = getRandomMover();
+        this.point = punto;
+        this.numAbeja = numAbeja;
+        this.mover = new MoverRandom();
+        System.out.println("cambiar");
+        //mover = getRandomMover();
         asignarValores(string);
     }
     
@@ -336,6 +340,7 @@ public class Abeja {
     }
 
     public Point getPoint(){
+        System.out.println(point.x + " " + point.y);
         return point;
     }
 

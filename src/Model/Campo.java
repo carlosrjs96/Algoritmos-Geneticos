@@ -108,6 +108,7 @@ public class Campo {
     }
     
     public void simular(){
+        System.out.println("gen " + numGen);
         while(this.numGen > 0 ){
             siguienteGeneracion();
             this.numGen --;
@@ -165,11 +166,14 @@ public class Campo {
     //dada la matriz de cromosomas crea todas las nuevas flores
     private void asignarNuevaGeneracion(ArrayList<String> matrizCromosomas) {
         floresList.clear();
+        System.out.println("punto");
         for (int i = 0; i < matrizFlores.length; i++) {
             for (int j = 0; j < matrizFlores[i].length; j++) {
                 if (matrizFlores[i][j] instanceof Flor){
                     Color color = Utilidades.getColor(matrizCromosomas.get(0)).getColor();
                     Point punto = new Point(j,i);
+                    System.out.println(punto.toString());
+                    System.out.println(floresList.size());
                     matrizFlores[i][j] = new Flor(punto, color);
                     floresList.add((Flor)  matrizFlores[i][j]);
                     matrizCromosomas.remove(0);
