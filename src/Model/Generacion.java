@@ -29,6 +29,7 @@ public class Generacion {
 
     public void setAbejasGeneraciones(ArrayList<Abeja> abejasGeneraciones) {
         this.abejasGeneraciones = new ArrayList();
+        //System.out.println("set adaptabilidad");
         setPromedioAdaptabilidad (abejasGeneraciones);
         this.abejasGeneraciones = abejasGeneraciones;
     }
@@ -63,11 +64,29 @@ public class Generacion {
     private void setPromedioAdaptabilidad(ArrayList<Abeja> abejasGeneraciones) {
         double promedio=0;
         for (Abeja abeja : abejasGeneraciones) {
+            //System.out.println(abeja.getIndiceNormalizado());
             promedio += abeja.getIndiceNormalizado();
         }
         this.promedioAdaptabilidad = promedio / abejasGeneraciones.size();
     }
 
+    public double getPromedioAdaptabilidad() {
+        return promedioAdaptabilidad;
+    }
+
+    public void setPromedioAdaptabilidad(double promedioAdaptabilidad) {
+        this.promedioAdaptabilidad = promedioAdaptabilidad;
+    }
+
+    public int getGen() {
+        return gen;
+    }
+
+    public void setGen(int gen) {
+        this.gen = gen;
+    }
+
+    
    
 
  

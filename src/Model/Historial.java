@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Historial {
     private ArrayList<Generacion> generaciones;
-    int index = 0;
+    private int index = 0;
     
     public Historial (){
         generaciones = new ArrayList();
@@ -52,5 +52,15 @@ public class Historial {
     public Generacion getGeneracion(){
         return generaciones.get(index);
     }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+    
+    
     
 }

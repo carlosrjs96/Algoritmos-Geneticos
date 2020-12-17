@@ -54,9 +54,8 @@ public class Abeja {
         anguloApertura = Utilidades.rand.nextInt(180);
         mamaAbeja = null;
         papaAbeja = null;
-        this.mover = new MoverRandom();
-        System.out.println("cambiar esto luego");
-        //mover = getRandomMover();
+        //this.mover = new MoverRandom();
+        mover = getRandomMover();
     }
     
     public Abeja(Point point, ColorType color, DireccionType direccion,
@@ -68,18 +67,17 @@ public class Abeja {
         this.distanciaMax = distanciaMax;
         //this.mama = mama;
         //this.papa = papa;
-        this.mover = new MoverRandom();
-        System.out.println("cambiar esto luego");
-        //this.setMover(random);
+        //this.mover = new MoverRandom();
+        this.mover = getRandomMover();
+        
     }
 
     public Abeja(String string, Abeja[] abejas,Point punto, int numAbeja) {
         this.antecesores = abejas;
         this.point = punto;
         this.numAbeja = numAbeja;
-        this.mover = new MoverRandom();
-        System.out.println("cambiar");
-        //mover = getRandomMover();
+        //this.mover = new MoverRandom();
+        mover = getRandomMover();
         asignarValores(string);
     }
     
@@ -159,29 +157,30 @@ public class Abeja {
     
     
     public void asignarAdaptabilidad(){
-        //System.out.println(" dis. recorrida "+ this.numAbeja + " : " + this.distanciaRecorrida);
-        //System.out.println("cant visitadas : " + getFloresVisitadas());
-        
-        if (getFloresVisitadas() == 0 || getDistaciaRecorrida() == 0){
-            System.out.println("0");
+        this.distanciaRecorrida = this.distanciaRecorrida / 100;
+        if (cantFloresVisitadas == 0 || distanciaRecorrida == 0){
             indiceAdaptibilidad = 0;
         }
         else {
-            System.out.println(getDistaciaRecorrida() / getFloresVisitadas());
-            indiceAdaptibilidad = (double) getDistaciaRecorrida() / getFloresVisitadas();
+            indiceAdaptibilidad = (double) cantFloresVisitadas/ distanciaRecorrida ;/// getDistaciaRecorrida();
         }
     }
     
     public void asignarAdaptabilidadNormalizada (double sumaIndices){
-        System.out.println("adap : " + indiceAdaptibilidad);
+        
+        System.out.println("num abeja : " + this.numAbeja);
+        System.out.println("suma : " + sumaIndices);
+        System.out.println("indice  " + indiceAdaptibilidad);
+        System.out.println("visitadas : " + cantFloresVisitadas);
+        System.out.println("dist " + distanciaRecorrida);
         if (indiceAdaptibilidad==0){
             indiceNormalizado = 0;
         }
         else {
             indiceNormalizado = (double) indiceAdaptibilidad / sumaIndices;
         }
-        
-        System.out.println(indiceNormalizado);
+        System.out.println("normal : " + indiceNormalizado);
+        System.out.println("--------------------------------------");
     }
     
     private double getDistaciaRecorrida(){
@@ -209,6 +208,7 @@ public class Abeja {
     
     private Mover getRandomMover(){
         int num = Utilidades.rand.nextInt(3);
+        //num = 1;
         Mover mover= null;
         switch (num) {
             case 0:
@@ -251,8 +251,9 @@ public class Abeja {
     
     
     public void visitarFlor(Flor flor){
-        this.cantFloresVisitadas++;
+        
         if(Utilidades.probPolenizar(flor, this)){
+            this.cantFloresVisitadas++;
             //AQUI LE INTRODUCE EL POLEN A LA FLOR
             Hashtable <Color, Integer> flrTmp = (Hashtable <Color, Integer>) flor.getPolenGuardado().clone();
             Hashtable <Color, Integer> abjTmp = (Hashtable <Color, Integer>) this.polenGuardado.clone();
@@ -340,7 +341,6 @@ public class Abeja {
     }
 
     public Point getPoint(){
-        System.out.println(point.x + " " + point.y);
         return point;
     }
 

@@ -21,12 +21,12 @@ public class Utilidades {
     
     public static final Random rand = new Random();
     public static double rangoMaximo = -1;
-    public static int probCrearFlor = 100;
+    public static int probCrearFlor = 100;//si es 100 crea todo
 
     public static int maxMutaFlor = 10;
     public static int maxMutaAbeja = 10;
 
-    public static int probPolenizarFlor = 50;
+    public static int probPolenizarFlor = 0;//si es 0 visita todo
 
     
     public static ColorType getRandomColor(){
@@ -165,19 +165,19 @@ public class Utilidades {
         //>>>> BubbleSort.
         double a;
         double b;
-        //Flor c;
-        //Flor d;
+        Flor c;
+        Flor d;
         for (int i = 0; i < list.size(); i++) {
             for (int j = 0; j < list.size() - i - 1; j++) {
                 a = Utilidades.distance(pCentre, list.get(j).getPoint());
                 b = Utilidades.distance(pCentre, list.get(j + 1).getPoint());
-                //c = list.get(j);
-                //d = list.get(j + 1);
-                int compare = new Double(a).compareTo(new Double(b));
-                if (compare > 0) {
-                    //Flor temp = d;
-                    list.set(j + 1, list.get(j));//list.set(j + 1, c);
-                    list.set(j, list.get(j + 1));//list.set(j, d);
+                c = list.get(j);
+                d = list.get(j + 1);
+                //int compare = new Double(a).compareTo(new Double(b));
+                if (a>b) {
+                    Flor temp = d;
+                    list.set(j + 1, c);//list.set(j + 1, list.get(j));
+                    list.set(j, d);//list.set(j, list.get(j + 1));
                 }
             }
         }
@@ -193,7 +193,7 @@ public class Utilidades {
     }
     
     public static double setRangoMaximo(){
-        double min = 1.5;
+        double min = rangoMaximo/2;
         double max = rangoMaximo;
         return (rand.nextFloat()* (max - min)) + min;
     }

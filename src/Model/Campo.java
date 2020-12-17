@@ -108,18 +108,21 @@ public class Campo {
     }
     
     public void simular(){
-        System.out.println("gen " + numGen);
+        
         while(this.numGen > 0 ){
+            System.out.println("gen " + numGen + "-----------------------------------------");
             siguienteGeneracion();
             this.numGen --;
         }
     }
     
     public void siguienteGeneracion(){
-       //hace copia de generacion actual
-        historia.addGeneracion(this.matrizFlores,panal.getAbejasList());
         //las abejas visitan las flores
         panal.moverAbejas(this.floresList);
+        //pues necesito los indices
+        panal.generarIndice();
+        //hace copia de generacion actual
+        historia.addGeneracion(this.matrizFlores,panal.getAbejasList());
         //todo se reproduce
         reproducir();
     }
@@ -159,6 +162,7 @@ public class Campo {
         if (mutaciones != 0){
             asignarMutaciones(matrizCromosomas, mutaciones);
         }
+        //***+aca guardar 
         asignarNuevaGeneracion(matrizCromosomas);
         
     }
@@ -166,14 +170,11 @@ public class Campo {
     //dada la matriz de cromosomas crea todas las nuevas flores
     private void asignarNuevaGeneracion(ArrayList<String> matrizCromosomas) {
         floresList.clear();
-        System.out.println("punto");
         for (int i = 0; i < matrizFlores.length; i++) {
             for (int j = 0; j < matrizFlores[i].length; j++) {
                 if (matrizFlores[i][j] instanceof Flor){
                     Color color = Utilidades.getColor(matrizCromosomas.get(0)).getColor();
                     Point punto = new Point(j,i);
-                    System.out.println(punto.toString());
-                    System.out.println(floresList.size());
                     matrizFlores[i][j] = new Flor(punto, color);
                     floresList.add((Flor)  matrizFlores[i][j]);
                     matrizCromosomas.remove(0);

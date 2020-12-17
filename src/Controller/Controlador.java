@@ -50,11 +50,11 @@ public class Controlador implements ActionListener{
             this.campo.iniciarTodo(mapa.getDimension(), mapa.getPobFlores(), mapa.getPobAbejas(), mapa.getNumGeneraciones());
             //
             update();
-            System.out.println("eliminar luego");
-            this.campo.simular();
         }
         else if (e.getSource().equals(this.mapa.btnEmpezar)){
             this.campo.simular();
+            Color[][] m = this.campo.getHistoria().getGeneracion().getFloresGeneraciones();
+            updateMapa(m);
         }
         else if(e.getSource().equals(this.mapa.btnAnterior)){
             this.campo.getHistoria().decIndex();
@@ -98,6 +98,10 @@ public class Controlador implements ActionListener{
     
     
     private void updateMapa(Color[][] matrizFlores){
+        int numGen = this.campo.getHistoria().getIndex();
+        this.mapa.txtGenActual.setText(Integer.toString(numGen));
+        double adapt = this.campo.getHistoria().getGeneracion().getPromedioAdaptabilidad();
+        this.mapa.lblAdaptabilidad.setText(Double.toString(adapt));
         for (int i = 0; i < matrizFlores.length; i++) {
             for (int j = 0; j < matrizFlores[i].length; j++) {
                 mapa.pnlArray[i][j].setBackground(matrizFlores[i][j]);

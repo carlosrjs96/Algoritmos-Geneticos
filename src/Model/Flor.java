@@ -114,8 +114,10 @@ public class Flor extends Casilla {
     public String getCromosoma(){
         String cromosoma;
         if (polenGuardado.isEmpty()) {
+            System.out.println("no visitada " + this.point.toString());
             cromosoma = getBitsColor(Utilidades.getRandomColor().getColor()); 
         } else {//hay polen
+            System.out.println("visitada");
             cromosoma = cruzarCromosoma();
         }
         return cromosoma;
