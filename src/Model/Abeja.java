@@ -43,6 +43,8 @@ public class Abeja {
     private double indiceAdaptibilidad;
     private double indiceNormalizado;
     private Abeja[] antecesores;
+    private boolean reproduce = false; 
+    private int vecesReproduce = 0;
     
     public Abeja(Point punto, int numAbeja){
         this.numAbeja = numAbeja;
@@ -168,19 +170,19 @@ public class Abeja {
     
     public void asignarAdaptabilidadNormalizada (double sumaIndices){
         
-        System.out.println("num abeja : " + this.numAbeja);
+        /*System.out.println("num abeja : " + this.numAbeja);
         System.out.println("suma : " + sumaIndices);
         System.out.println("indice  " + indiceAdaptibilidad);
         System.out.println("visitadas : " + cantFloresVisitadas);
-        System.out.println("dist " + distanciaRecorrida);
+        System.out.println("dist " + distanciaRecorrida);*/
         if (indiceAdaptibilidad==0){
             indiceNormalizado = 0;
         }
         else {
             indiceNormalizado = (double) indiceAdaptibilidad / sumaIndices;
         }
-        System.out.println("normal : " + indiceNormalizado);
-        System.out.println("--------------------------------------");
+        /*System.out.println("normal : " + indiceNormalizado);
+        System.out.println("--------------------------------------");*/
     }
     
     private double getDistaciaRecorrida(){
@@ -255,13 +257,25 @@ public class Abeja {
         if(Utilidades.probPolenizar(flor, this)){
             this.cantFloresVisitadas++;
             //AQUI LE INTRODUCE EL POLEN A LA FLOR
-            Hashtable <Color, Integer> flrTmp = (Hashtable <Color, Integer>) flor.getPolenGuardado().clone();
-            Hashtable <Color, Integer> abjTmp = (Hashtable <Color, Integer>) this.polenGuardado.clone();
-            addPolen(flor.getColor());
+            Hashtable <Color, Integer> flrTmp = deepCopy(flor.getPolenGuardado());
+            Hashtable <Color, Integer> abjTmp = deepCopy(this.polenGuardado);
+            addPolen(flrTmp);
             flor.addPolen(abjTmp);
         } 
     }
     
+    public Hashtable<Color, Integer> deepCopy(Hashtable<Color, Integer> original) {
+        Hashtable<Color, Integer> copy = new Hashtable<Color, Integer>();
+        Set<Color> keys = original.keySet();
+        Iterator<Color> itr = keys.iterator();
+        Color key;
+        while (itr.hasNext()) {
+            key = itr.next();
+            copy.put(key, original.get(key));
+        }
+        return copy;
+    }
+
     
     public void addPolen(Color key){
         int anterior = 0;
@@ -274,6 +288,7 @@ public class Abeja {
     
     //añade el polen de la flor al polen de la abeja
     public void addPolen (Hashtable<Color, Integer> polenGuardado){
+        //System.out.println("tama ño : " + polenGuardado.size());
         Set<Color> keys = polenGuardado.keySet();
         //para iterar sobre las llaves
         Iterator<Color> itr = keys.iterator();
@@ -440,6 +455,23 @@ public class Abeja {
         this.antecesores = antecesores;
     }
 
+    public boolean isReproduce() {
+        return reproduce;
+    }
+
+    public void setReproduce(boolean reproduce) {
+        this.reproduce = reproduce;
+    }
+
+    public int getVecesReproduce() {
+        return vecesReproduce;
+    }
+
+    public void setVecesReproduce(int vecesReproduce) {
+        this.vecesReproduce = vecesReproduce;
+    }
+
+    
     
     
     

@@ -95,7 +95,7 @@ public class Mapa extends javax.swing.JFrame {
 
         jLabel1.setText("Dimension : ");
 
-        txtDimension.setText("5");
+        txtDimension.setText("101");
         txtDimension.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDimensionActionPerformed(evt);
@@ -108,14 +108,14 @@ public class Mapa extends javax.swing.JFrame {
 
         jLabel4.setText("Max. Flores : ");
 
-        txtPobAbejas.setText("10");
+        txtPobAbejas.setText("50");
         txtPobAbejas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPobAbejasActionPerformed(evt);
             }
         });
 
-        txtPobFlores.setText("20");
+        txtPobFlores.setText("10000");
 
         btnCargar.setText("Cargar");
 
@@ -123,7 +123,7 @@ public class Mapa extends javax.swing.JFrame {
 
         jLabel5.setText("Num. Generaciones :");
 
-        txtNumGeneraciones.setText("5");
+        txtNumGeneraciones.setText("200");
         txtNumGeneraciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNumGeneracionesActionPerformed(evt);
@@ -184,9 +184,7 @@ public class Mapa extends javax.swing.JFrame {
                                             .addComponent(txtPobAbejas, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
                                             .addComponent(txtNumGeneraciones, javax.swing.GroupLayout.Alignment.TRAILING))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtGenActual, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtGenActual, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(btnCargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnEmpezar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()

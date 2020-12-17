@@ -32,16 +32,19 @@ public class Flor extends Casilla {
         point = new Point(x,y);
 
         this.color = Utilidades.getRandomColor().getColor();
+        addPolenGuardado();
     }
 
     public Flor(Point point, Color color) {
         super();
         this.point = point;
         this.color = color;
+        addPolenGuardado();
     }
 
     public Flor(Color color) {
         this.color = color;
+        addPolenGuardado();
     }
 
     /*
@@ -113,15 +116,27 @@ public class Flor extends Casilla {
     //esta la llama campo
     public String getCromosoma(){
         String cromosoma;
-        if (polenGuardado.isEmpty()) {
-            System.out.println("no visitada " + this.point.toString());
+        if (esVacia()) {
+            //System.out.println("no visitada " + this.point.toString());
+            //cambiar esto luego
             cromosoma = getBitsColor(Utilidades.getRandomColor().getColor()); 
+            
         } else {//hay polen
-            System.out.println("visitada");
+            //System.out.println("visitada");
             cromosoma = cruzarCromosoma();
         }
+        //cambiarlo
+        //cromosoma = getBitsColor(this.color);
         return cromosoma;
     }
+    
+    private boolean esVacia(){
+        if (polenGuardado.size() == 1 && polenGuardado.get(this.color) == 1){
+            return true;
+        }
+        return false;
+    }
+    
     
     //se cruzaran unicamente los colores
     private String cruzarCromosoma(){
@@ -263,6 +278,15 @@ public class Flor extends Casilla {
             anterior += polenGuardado.get(key);
             this.polenGuardado.put(key, anterior);
         } 
+    }
+    
+    private void addPolenGuardado(){
+        int anterior = 0;
+         if (this.polenGuardado.containsKey(this.color)){
+                anterior = this.polenGuardado.get(this.color);
+        }
+        anterior += 1;
+        this.polenGuardado.put(this.color, anterior);
     }
 
 }

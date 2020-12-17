@@ -52,6 +52,7 @@ public class Controlador implements ActionListener{
         this.vistaAbeja.btnCargar.addActionListener(this);
         this.vistaAbeja.btnVerAnt1.addActionListener(this);
         this.vistaAbeja.btnVerAnt2.addActionListener(this);
+        this.vistaAbeja.btnCerrar.addActionListener(this);
     }
 
     @Override
@@ -85,7 +86,8 @@ public class Controlador implements ActionListener{
         }
         else if (e.getSource().equals(this.mapa.btnVerAbejas)){
             int maxAbejas = this.campo.getHistoria().getGeneracion().getAbejasGeneraciones().size();
-            this.vistaAbeja.loadCmbAbejas(maxAbejas);
+            int gen = this.campo.getHistoria().getIndex();
+            this.vistaAbeja.loadCmbAbejas(maxAbejas, gen);
             this.vistaAbeja.setVisible(true);
         }
         //Abeja
@@ -97,7 +99,7 @@ public class Controlador implements ActionListener{
         else if (e.getSource().equals(this.vistaAbeja.btnVerAnt1)){
             int numAbeja = Integer.parseInt(String.valueOf(this.vistaAbeja.cmbAbejas.getSelectedItem()));
             Abeja abeja = this.campo.getHistoria().getGeneracion().getAbejasGeneraciones().get(numAbeja);
-            if (this.vistaAbeja.loadAntecesor(abeja,0)){//si la setea 
+            if (this.vistaAbeja.loadAntecesor(abeja,0,0)){//si la setea 
                 //reduce el indece de generacion
                 this.campo.getHistoria().decIndex();
                 //recarga cmboBox
@@ -110,7 +112,7 @@ public class Controlador implements ActionListener{
         else if (e.getSource().equals(this.vistaAbeja.btnVerAnt2)){
             int numAbeja = Integer.parseInt(String.valueOf(this.vistaAbeja.cmbAbejas.getSelectedItem()));
             Abeja abeja = this.campo.getHistoria().getGeneracion().getAbejasGeneraciones().get(numAbeja);
-            if (this.vistaAbeja.loadAntecesor(abeja,1)){//si la setea 
+            if (this.vistaAbeja.loadAntecesor(abeja,1,0)){//si la setea 
                 //reduce el indece de generacion
                 this.campo.getHistoria().decIndex();
                 //recarga cmboBox
@@ -119,6 +121,9 @@ public class Controlador implements ActionListener{
                 /*int maxAbejas = this.campo.getHistoria().getGeneracion().getAbejasGeneraciones().size();
                 this.vistaAbeja.loadCmbAbejas(maxAbejas);*/
             }
+        }
+        else if (e.getSource().equals(this.vistaAbeja.btnCerrar)){
+            this.vistaAbeja.setVisible(false);
         }
         
     }

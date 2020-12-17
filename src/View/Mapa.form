@@ -58,10 +58,7 @@
                                       </Group>
                                       <EmptySpace pref="8" max="32767" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="txtGenActual" min="-2" pref="112" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="txtGenActual" alignment="1" min="-2" pref="112" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="btnCargar" alignment="1" max="32767" attributes="0"/>
@@ -183,7 +180,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtDimension">
       <Properties>
-        <Property name="text" type="java.lang.String" value="5"/>
+        <Property name="text" type="java.lang.String" value="101"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDimensionActionPerformed"/>
@@ -209,7 +206,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtPobAbejas">
       <Properties>
-        <Property name="text" type="java.lang.String" value="10"/>
+        <Property name="text" type="java.lang.String" value="50"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPobAbejasActionPerformed"/>
@@ -220,7 +217,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtPobFlores">
       <Properties>
-        <Property name="text" type="java.lang.String" value="20"/>
+        <Property name="text" type="java.lang.String" value="10000"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -249,7 +246,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtNumGeneraciones">
       <Properties>
-        <Property name="text" type="java.lang.String" value="5"/>
+        <Property name="text" type="java.lang.String" value="200"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNumGeneracionesActionPerformed"/>

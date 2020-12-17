@@ -16,6 +16,7 @@ import java.util.Random;
 public class Panal extends Casilla{
     private ArrayList<Abeja> abejasList ;
     private int poblacion;
+    private ArrayList<Abeja[]> parejas;
     
     public Panal() {
         abejasList = new ArrayList<Abeja>();
@@ -41,10 +42,11 @@ public class Panal extends Casilla{
         //generarIndice();
         //estos osn numeros random entre 0 -1
         //para tomar las abejas que se reproduciran
-        ArrayList<Abeja[]> parejas = asignarParejas();
-        ArrayList<String[]> strParejas = convertirABits(parejas);
+        //ArrayList<Abeja[]> parejas = asignarParejas();
+        ArrayList<String[]> strParejas = convertirABits(this.parejas);
         cruzarCromosomas (strParejas);
         mutarParejas(strParejas);
+        
         crearNuevaGeneracion(strParejas, parejas);
         
         
@@ -78,10 +80,11 @@ public class Panal extends Casilla{
     //dada la cantidad de mutaciones las asigna a los bits
     private void asignarMutaciones (ArrayList<String> matrizCromosomas, int cantidadMutaciones){
         //todas las posiciones donde su mutara
-        
         ArrayList<int[]> posiciones = getAllPositions(matrizCromosomas.get(0).length(), matrizCromosomas.size());
         int index;
         int[] par;
+        //en el caso que hayan más mutaciones que pares
+        cantidadMutaciones = cantidadMutaciones % posiciones.size();
         while (cantidadMutaciones>0){
             index = Utilidades.rand.nextInt(posiciones.size());
             par = posiciones.get(index);
@@ -104,6 +107,7 @@ public class Panal extends Casilla{
     
     //dado un indice cambia de 0 a 1 en el string
     private void cambiarBit(String cromosoma, int index){
+        
         Character letra = cromosoma.charAt(index);
         String nueva;
         if (letra.equals('0')){
@@ -198,7 +202,7 @@ public class Panal extends Casilla{
     
     
     //
-    public ArrayList<Abeja[]> asignarParejas(){
+    public void asignarParejas(){
         //es el array que se va creando
         ArrayList<Abeja[]> parejas = new ArrayList();
         //este es homologo a abejasList
@@ -208,6 +212,7 @@ public class Panal extends Casilla{
         
         //me retorna los indice de cantidadAbeja que son distintos de 0
         ArrayList <Integer> indices = getIndices (cantidadAbeja);
+        
         //generar random en indices dos veces para obtener la pareja
         while(!indices.isEmpty()){//mientra hayan indices
             Abeja[] par = new Abeja[2];
@@ -216,6 +221,8 @@ public class Panal extends Casilla{
                 int num = Utilidades.rand.nextInt(indices.size());
                 //lo seteo en la posicion
                 par[i] = abejasList.get(indices.get(num));
+                abejasList.get(indices.get(num)).setReproduce(true);
+                
                 //lo resto para no ir repitiendo las abejas que no deban
                 int veces = cantidadAbeja.get(indices.get(num)) - 1;
                 //si es cero se debe de eliminar de indices
@@ -228,13 +235,16 @@ public class Panal extends Casilla{
             }
             parejas.add(par);
         }
-        return parejas;
+        this.parejas =  parejas;
     }
     
     //retorna los indices donde cant!= 0
+    
+   
     private ArrayList <Integer> getIndices (ArrayList <Integer> cantAbejas){
         ArrayList <Integer> indices = new ArrayList();
         for (int i = 0 ; i < cantAbejas.size(); i++){
+            abejasList.get(i).setVecesReproduce(cantAbejas.get(i));
             if (cantAbejas.get(i)!=0) {
                 indices.add(i);
             }
@@ -248,6 +258,7 @@ public class Panal extends Casilla{
     private ArrayList<Integer> seleccionarAbejas(){
         //este es un espejo de abejasList
         //lleva la cantidad de veces que se reproduce cada abeja
+
         ArrayList<Integer> cantidadAbeja = new ArrayList();
         //setea numeros randoms entre 0 -1 
         //la cantidad de numeros es la poblacion de abejas
@@ -280,7 +291,7 @@ public class Panal extends Casilla{
         if (randoms.isEmpty()){
             return 0;
         }
-        while(randoms.get(i) < techo){
+        while(randoms.get(0) < techo){
             if (randoms.get(0)< techo){
                 veces++;
                 randoms.remove(0);
@@ -325,6 +336,9 @@ public class Panal extends Casilla{
         }
     }
     
+    public void clearParejas (){
+        this.parejas.clear();
+    }
     
     
 }

@@ -39,6 +39,8 @@ public class Campo {
         this.matrizFlores = new Casilla [dimension][dimension];
         this.floresList = new ArrayList();
         Utilidades.setRangoMaximo(dimension);
+        Utilidades.setMaxMutaAbeja(pobAbejas*5);
+        Utilidades.setMaxMutaFlor((int)pobFlores/2);
         
         //this.probCrearFlor = 50;
         inicializarMatriz();
@@ -121,6 +123,7 @@ public class Campo {
         panal.moverAbejas(this.floresList);
         //pues necesito los indices
         panal.generarIndice();
+        panal.asignarParejas();
         //hace copia de generacion actual
         historia.addGeneracion(this.matrizFlores,panal.getAbejasList());
         //todo se reproduce
@@ -159,6 +162,8 @@ public class Campo {
         ArrayList<String> matrizCromosomas = getCromosomasFlores();
         
         int mutaciones = getMutaciones();
+        System.out.println("cambiar esto");
+        //mutaciones = 0;
         if (mutaciones != 0){
             asignarMutaciones(matrizCromosomas, mutaciones);
         }

@@ -23,10 +23,10 @@ public class Utilidades {
     public static double rangoMaximo = -1;
     public static int probCrearFlor = 100;//si es 100 crea todo
 
-    public static int maxMutaFlor = 10;
-    public static int maxMutaAbeja = 10;
+    public static int maxMutaFlor = 100;
+    public static int maxMutaAbeja = 100;
 
-    public static int probPolenizarFlor = 0;//si es 0 visita todo
+    public static int probPolenizarFlor = 70;//si es 0 visita todo
 
     
     public static ColorType getRandomColor(){
@@ -54,7 +54,7 @@ public class Utilidades {
 
     //corta el cromosoma
     //index = 6
-    //string = "100100|100101001"
+    //string = "100100 | 100101001"
     //          012345|6789
     public static String[] cortarCromosoma(String cromosoma, int index){
         String primerParte = cromosoma.substring(0, index);
@@ -197,5 +197,22 @@ public class Utilidades {
         double max = rangoMaximo;
         return (rand.nextFloat()* (max - min)) + min;
     }
+
+    public static int getMaxMutaFlor() {
+        return maxMutaFlor;
+    }
+
+    public static void setMaxMutaFlor(int maxMutaFlor) {
+        Utilidades.maxMutaFlor = maxMutaFlor;
+    }
+
+    public static int getMaxMutaAbeja() {
+        return maxMutaAbeja;
+    }
+
+    public static void setMaxMutaAbeja(int maxMutaAbeja) {
+        Utilidades.maxMutaAbeja = maxMutaAbeja;
+    }
+    
 
 }
