@@ -58,6 +58,7 @@ public class Historial {
     }
 
     public void setIndex(int index) {
+        index = index % this.generaciones.size();
         this.index = index;
     }
     

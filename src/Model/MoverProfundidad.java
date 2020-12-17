@@ -56,6 +56,11 @@ public class MoverProfundidad  extends Mover{
         //System.out.println("dist abeja : " + abeja.getNumAbeja() + " " + abeja.getDistanciaRecorrida());
         abeja.setPoint(panal.getPoint());//devuelve la abeja al panal
     }
+
+    @Override
+    public String getNombre() {
+        return "Profundidad";
+    }
     
     
 }

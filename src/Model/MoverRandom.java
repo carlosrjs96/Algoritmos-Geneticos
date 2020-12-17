@@ -38,4 +38,9 @@ public class MoverRandom extends Mover{
         abeja.setDistanciaRecorrida(abeja.getDistanciaRecorrida() + distance);
         abeja.setPoint(panal.getPoint());//devuelve la abeja al panal
     }
+
+    @Override
+    public String getNombre() {
+        return "Random";
+    }
 }

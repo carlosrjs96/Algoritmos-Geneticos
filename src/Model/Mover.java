@@ -13,4 +13,5 @@ import java.util.ArrayList;
  */
 public abstract class Mover {
     public abstract void mover(Abeja abeja, Panal panal, ArrayList<Flor> listFlores);
+    public abstract String getNombre();
 }

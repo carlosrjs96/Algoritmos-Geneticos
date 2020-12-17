@@ -5,11 +5,13 @@
  */
 package Controller;
 
+import Model.Abeja;
 import Model.Campo;
 import Model.Casilla;
 import Model.Flor;
 import Model.Panal;
 import View.Mapa;
+import View.VistaAbeja;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,10 +27,12 @@ public class Controlador implements ActionListener{
     
     private Mapa mapa;
     private Campo campo;
+    private VistaAbeja vistaAbeja;
     
     public Controlador (){
         this.mapa = new Mapa();
         this.campo = new Campo();
+        this.vistaAbeja = new VistaAbeja();
         
         this.mapa.setVisible(true);
         
@@ -37,10 +41,17 @@ public class Controlador implements ActionListener{
     }
     
     private void _init_() {
+        //mapa------------------
         this.mapa.btnCargar.addActionListener(this);
         this.mapa.btnEmpezar.addActionListener(this);
         this.mapa.btnAnterior.addActionListener(this);
         this.mapa.btnSiguiente.addActionListener(this);
+        this.mapa.btnVerAbejas.addActionListener(this);
+        this.mapa.btnVerGen.addActionListener(this);
+        //abejas--------------------------
+        this.vistaAbeja.btnCargar.addActionListener(this);
+        this.vistaAbeja.btnVerAnt1.addActionListener(this);
+        this.vistaAbeja.btnVerAnt2.addActionListener(this);
     }
 
     @Override
@@ -66,6 +77,50 @@ public class Controlador implements ActionListener{
             Color[][] m = this.campo.getHistoria().getGeneracion().getFloresGeneraciones();
             updateMapa(m);
         }
+        else if (e.getSource().equals(this.mapa.btnVerGen)){
+            int num = Integer.parseInt(this.mapa.txtGenActual.getText());
+            this.campo.getHistoria().setIndex(num);
+            Color[][] m = this.campo.getHistoria().getGeneracion().getFloresGeneraciones();
+            updateMapa(m);
+        }
+        else if (e.getSource().equals(this.mapa.btnVerAbejas)){
+            int maxAbejas = this.campo.getHistoria().getGeneracion().getAbejasGeneraciones().size();
+            this.vistaAbeja.loadCmbAbejas(maxAbejas);
+            this.vistaAbeja.setVisible(true);
+        }
+        //Abeja
+        else if (e.getSource().equals(this.vistaAbeja.btnCargar)){
+            int numAbeja = Integer.parseInt(String.valueOf(this.vistaAbeja.cmbAbejas.getSelectedItem()));
+            Abeja abeja = this.campo.getHistoria().getGeneracion().getAbejasGeneraciones().get(numAbeja);
+            this.vistaAbeja.loadAbeja(abeja);
+        }
+        else if (e.getSource().equals(this.vistaAbeja.btnVerAnt1)){
+            int numAbeja = Integer.parseInt(String.valueOf(this.vistaAbeja.cmbAbejas.getSelectedItem()));
+            Abeja abeja = this.campo.getHistoria().getGeneracion().getAbejasGeneraciones().get(numAbeja);
+            if (this.vistaAbeja.loadAntecesor(abeja,0)){//si la setea 
+                //reduce el indece de generacion
+                this.campo.getHistoria().decIndex();
+                //recarga cmboBox
+                //****no muy necesario pues es con indice = tamños poblacion
+                //y este es el mismo siempre
+                /*int maxAbejas = this.campo.getHistoria().getGeneracion().getAbejasGeneraciones().size();
+                this.vistaAbeja.loadCmbAbejas(maxAbejas);*/
+            }
+        }
+        else if (e.getSource().equals(this.vistaAbeja.btnVerAnt2)){
+            int numAbeja = Integer.parseInt(String.valueOf(this.vistaAbeja.cmbAbejas.getSelectedItem()));
+            Abeja abeja = this.campo.getHistoria().getGeneracion().getAbejasGeneraciones().get(numAbeja);
+            if (this.vistaAbeja.loadAntecesor(abeja,1)){//si la setea 
+                //reduce el indece de generacion
+                this.campo.getHistoria().decIndex();
+                //recarga cmboBox
+                //****no muy necesario pues es con indice = tamños poblacion
+                //y este es el mismo siempre
+                /*int maxAbejas = this.campo.getHistoria().getGeneracion().getAbejasGeneraciones().size();
+                this.vistaAbeja.loadCmbAbejas(maxAbejas);*/
+            }
+        }
+        
     }
 
     

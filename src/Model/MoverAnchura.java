@@ -52,4 +52,9 @@ public class MoverAnchura extends Mover{
         abeja.setPoint(panal.getPoint());//devuelve la abeja al panal
         
     }
+
+    @Override
+    public String getNombre() {
+        return "Anchura";
+    }
 }

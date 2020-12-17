@@ -432,6 +432,15 @@ public class Abeja {
         this.numAbeja = numAbeja;
     }
 
+    public Abeja[] getAntecesores() {
+        return antecesores;
+    }
+
+    public void setAntecesores(Abeja[] antecesores) {
+        this.antecesores = antecesores;
+    }
+
+    
     
     
     
