@@ -66,17 +66,18 @@ public class Generacion {
         int contador = 0;
         for (Abeja abeja : abejasGeneraciones) {
             //System.out.println(abeja.getIndiceNormalizado());
-            if (abeja.isReproduce()){
+            promedio += abeja.getIndiceAdaptibilidad();
+            /*if (abeja.isReproduce()){
                 promedio += abeja.getIndiceNormalizado();
                 contador++;
-            }
+            }*/
             /*if (abeja.getIndiceNormalizado()>0){
                 promedio += abeja.getIndiceNormalizado();
                 contador++;
             }*/
             
         }
-        this.promedioAdaptabilidad = promedio / contador;
+        this.promedioAdaptabilidad = promedio / abejasGeneraciones.size();
     }
 
     public double getPromedioAdaptabilidad() {

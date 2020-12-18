@@ -164,7 +164,11 @@ public class Abeja {
             indiceAdaptibilidad = 0;
         }
         else {
-            indiceAdaptibilidad = (double) cantFloresVisitadas/ distanciaRecorrida ;/// getDistaciaRecorrida();
+            indiceAdaptibilidad = (double) cantFloresVisitadas * cantFloresVisitadas / distanciaRecorrida  + this.distanciaMax;
+            //indiceAdaptibilidad = (double) distanciaRecorrida / cantFloresVisitadas;
+            //indiceAdaptibilidad = (double) cantFloresVisitadas * cantFloresVisitadas / distanciaRecorrida + this.anguloApertura;
+            //indiceAdaptibilidad = (double) cantFloresVisitadas * cantFloresVisitadas / distanciaRecorrida ;//+ this.anguloApertura ;/// getDistaciaRecorrida();
+            
         }
     }
     
@@ -179,7 +183,7 @@ public class Abeja {
             indiceNormalizado = 0;
         }
         else {
-            indiceNormalizado = (double) indiceAdaptibilidad / sumaIndices;
+            indiceNormalizado = (double) indiceAdaptibilidad  / sumaIndices;
         }
         /*System.out.println("normal : " + indiceNormalizado);
         System.out.println("--------------------------------------");*/
