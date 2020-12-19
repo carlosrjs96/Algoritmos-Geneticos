@@ -108,14 +108,14 @@ public class Mapa extends javax.swing.JFrame {
 
         jLabel4.setText("Max. Flores : ");
 
-        txtPobAbejas.setText("50");
+        txtPobAbejas.setText("20");
         txtPobAbejas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPobAbejasActionPerformed(evt);
             }
         });
 
-        txtPobFlores.setText("10000");
+        txtPobFlores.setText("12000");
 
         btnCargar.setText("Cargar");
 
@@ -123,7 +123,7 @@ public class Mapa extends javax.swing.JFrame {
 
         jLabel5.setText("Num. Generaciones :");
 
-        txtNumGeneraciones.setText("200");
+        txtNumGeneraciones.setText("50");
         txtNumGeneraciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNumGeneracionesActionPerformed(evt);

@@ -164,8 +164,8 @@ public class Abeja {
             indiceAdaptibilidad = 0;
         }
         else {
-            indiceAdaptibilidad = (double) cantFloresVisitadas * cantFloresVisitadas / distanciaRecorrida  + this.distanciaMax;
-            //indiceAdaptibilidad = (double) distanciaRecorrida / cantFloresVisitadas;
+            indiceAdaptibilidad = (double) cantFloresVisitadas * cantFloresVisitadas / distanciaRecorrida;
+            //indiceAdaptibilidad = (double) cantFloresVisitadas / distanciaRecorrida;
             //indiceAdaptibilidad = (double) cantFloresVisitadas * cantFloresVisitadas / distanciaRecorrida + this.anguloApertura;
             //indiceAdaptibilidad = (double) cantFloresVisitadas * cantFloresVisitadas / distanciaRecorrida ;//+ this.anguloApertura ;/// getDistaciaRecorrida();
             
@@ -265,6 +265,7 @@ public class Abeja {
             Hashtable <Color, Integer> abjTmp = deepCopy(this.polenGuardado);
             addPolen(flrTmp);
             flor.addPolen(abjTmp);
+            flor.setPolenizada(true);
         } 
     }
     

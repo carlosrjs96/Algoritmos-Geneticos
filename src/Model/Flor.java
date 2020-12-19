@@ -26,6 +26,7 @@ public class Flor extends Casilla {
 
     private Hashtable<Color, Integer> polenGuardado = new Hashtable<Color, Integer>();
     private Color color;
+    private boolean polenizada = false;
 
     
     public Flor (int x, int y) {
@@ -288,5 +289,15 @@ public class Flor extends Casilla {
         anterior += 1;
         this.polenGuardado.put(this.color, anterior);
     }
+
+    public boolean isPolenizada() {
+        return polenizada;
+    }
+
+    public void setPolenizada(boolean polenizada) {
+        this.polenizada = polenizada;
+    }
+    
+    
 
 }

@@ -112,7 +112,7 @@ public class Campo {
     public void simular(){
         
         while(this.numGen > 0 ){
-            System.out.println("gen " + numGen + "-----------------------------------------");
+            //System.out.println("gen " + numGen + "-----------------------------------------");
             siguienteGeneracion();
             this.numGen --;
         }
@@ -162,7 +162,7 @@ public class Campo {
         ArrayList<String> matrizCromosomas = getCromosomasFlores();
         
         int mutaciones = getMutaciones();
-        System.out.println("cambiar esto");
+        //System.out.println("cambiar esto");
         //mutaciones = 0;
         if (mutaciones != 0){
             asignarMutaciones(matrizCromosomas, mutaciones);
@@ -280,7 +280,22 @@ public class Campo {
         this.historia = historia;
     }
 
-
+    private int[] getCantidadFloresVisitadas(){
+        int [ ] contadores = new int[9];
+        int contador = 0;
+        for (int i = 0; i < this.matrizFlores.length; i++) {
+            for (int j = 0; j < this.matrizFlores[i].length; j++) {
+                if (matrizFlores[i][j] instanceof Flor){
+                    Flor fl = (Flor) matrizFlores[i][j];
+                    if (fl.isPolenizada()){
+                        contador++;
+                        
+                    }
+                }
+            }
+        }
+        return contadores;
+    }
 
 
    

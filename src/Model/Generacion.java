@@ -78,6 +78,7 @@ public class Generacion {
             
         }
         this.promedioAdaptabilidad = promedio / abejasGeneraciones.size();
+        System.out.println(this.promedioAdaptabilidad);
     }
 
     public double getPromedioAdaptabilidad() {
